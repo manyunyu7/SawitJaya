@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rs_onboarding">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="27dp"
+        app:layout_constraintBottom_toTopOf="@+id/containerBtnLogin"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display"
+            android:text="Klik,\nTimbang,\nJual"
+            android:textColor="@color/colorWhite"
+            android:textSize="56sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display"
+            android:text="Jual Tandan Buah Segar lebih mudah dengan Aplikasi Sawitz !"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_margin="30dp"
+        android:id="@+id/containerBtnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="15dp"
+            app:backgroundTint="@color/colorWhite"
+            android:textColor="@color/colorBlack"
+            android:text="Login" />
+
+        <ProgressBar
+            android:id="@+id/progress_loader"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btnStartLogin"
+            app:layout_constraintEnd_toEndOf="@+id/btnStartLogin"
+            app:layout_constraintStart_toStartOf="@+id/btnStartLogin"
+            app:layout_constraintTop_toTopOf="@+id/btnStartLogin" />
+
+
+        <LinearLayout
+            android:id="@+id/btnStartRegister"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum Punya Akun ? "
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Daftar Sekarang"
+                android:textColor="@color/colorWhite" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_login"/>
+    <include layout="@layout/layout_register"/>
+    <include layout="@layout/layout_loading_transparent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
