@@ -31,6 +31,7 @@ class Preference(val context: Context) {
         return sharedPref.getString(KEY_NAME, null)
     }
 
+
     fun clearPreferences(){
         editor.clear()
         editor.commit()

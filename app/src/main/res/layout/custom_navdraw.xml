@@ -58,6 +58,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/ndTvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display"
@@ -66,6 +67,7 @@
                         android:textSize="26sp" />
 
                     <TextView
+                        android:id="@+id/ndTvLevel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display"
@@ -74,6 +76,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/ndTvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display"
@@ -163,17 +166,19 @@
 
 
                     <TextView
+                        android:layout_centerInParent="true"
                         android:id="@+id/labelName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/sf_pro_display_light"
                         android:gravity="center"
-                        android:text="Sawitz"
+                        android:text="Sawit Jaya"
                         android:textAlignment="center"
                         android:textColor="#000"
                         android:textSize="30sp" />
                     <TextView
+                        android:id="@+id/jargon"
                         android:layout_below="@id/labelName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -185,11 +190,11 @@ Aplikasi Sawitz !"
                         android:textAlignment="center"
                         android:textColor="#000" />
                     <ImageView
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_above="@+id/labelName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_truck_sell"/>
+                        android:src="@mipmap/ic_sawitz"/>
 
                 </RelativeLayout>
 

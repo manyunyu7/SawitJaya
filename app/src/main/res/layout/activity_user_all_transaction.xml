@@ -2,103 +2,63 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyt_user_transaction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_all_transaction"
-    android:id="@+id/lyt_user_transaction"
     android:background="@color/colorPurplish">
-
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_weight="4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <RelativeLayout
-                android:id="@+id/containerGreeting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <ImageView
-                    android:id="@+id/btnToggleNavdraw"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/ic_hamburger"
-                    android:tint="#7988FC" />
-
-                <TextView
-                    android:id="@+id/greetingMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/btnToggleNavdraw"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Riwayat Transaksi"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/greetingMessage"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Henry Augusta"
-                    android:textColor="@color/colorShadow"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-
-        </LinearLayout>
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topContainer">
 
 
         <LinearLayout
-            android:padding="20dp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/rs_cardboard2">
-            <androidx.cardview.widget.CardView
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="4dp"
-                app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/colorWhite">
+                android:layout_height="wrap_content">
 
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:layout_scrollFlags="enterAlways|scroll"
+                    app:popupTheme="@style/Theme.AppCompat.Light">
 
-                <TextView
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawableLeft="@drawable/ic_search"
-                    android:drawablePadding="20dp"
-                    android:id="@+id/searchView"
+                </androidx.appcompat.widget.Toolbar>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/orderTabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:hint="Cari Tanggal atau Jenis Transaksi"
-                    android:textSize="15sp"/>
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorNeoBlue"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed"
+                    app:tabTextColor="@color/colorBlack">
 
-            </androidx.cardview.widget.CardView>
-            <include layout="@layout/list_anggota"/>
-            <include layout="@layout/list_anggota"/>
-            <include layout="@layout/list_anggota"/>
+                </com.google.android.material.tabs.TabLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/custom_navdraw"/>
+    <include layout="@layout/custom_navdraw" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,5 +20,10 @@
     <color name="colorGreen">#17B241</color>
     <color name="colorTextSecondary">#A8B2C8</color>
     <color name="colorPurple">#7988FC</color>
+    <color name="colorOrangePrice">#f08a5d</color>
+
+    <color name="colorGreenLight">#EFF5F4</color>
+
+
 
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_1"
+        android:icon="@drawable/ic_baseline_bar_chart_24"
+        android:title="Harga" />
+    <item
+        android:id="@+id/navigation_2"
+        android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+        android:title="Staff" />
+    <item
+        android:id="@+id/navigation_3"
+        android:icon="@drawable/ic_baseline_nature_people_24"
+        android:title="Pengguna" />
+
+</menu>

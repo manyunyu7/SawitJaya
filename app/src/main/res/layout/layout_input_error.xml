@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xDialog"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#fff"
+            >
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/xDialogIcon"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="error.json"/>
+            <TextView
+                android:id="@+id/xDialogTitle"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bootstrapRed"
+                android:text="Mengupload\nGambar"/>
+            <TextView
+                android:id="@+id/xDialogContent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textAlignment="center"
+                android:layout_width="240dp"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="Mengupload\nGambar"/>
+
+            <Button
+                android:id="@+id/xDialogButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Test Button"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

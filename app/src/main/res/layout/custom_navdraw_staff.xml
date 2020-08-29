@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lyt_navdraw_staff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:visibility="gone">
+
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rs_navdraw_bg">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/containerNdProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="22dp"
+                    app:cardCornerRadius="50dp">
+
+                    <ImageView
+                        android:id="@+id/navDrawProfile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_profile" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:id="@+id/btnStaffCloseNavDraw"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="23dp"
+                    android:src="@drawable/ic_arrow_back" />
+                <LinearLayout
+                    android:layout_below="@id/containerNdProfile"
+                    android:id="@+id/containerInfoUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ndTvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display"
+                        android:text="Henry Augusta"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:id="@+id/ndTvLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display"
+                        android:text="Petani Sawit"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/ndTvEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display"
+                        android:text="henryyy@gmail.com"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rs_cardview_half"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/ndStaffBtnHome"
+                    style="@style/TextViewCommonProfile"
+                    android:layout_marginBottom="17dp"
+                    android:text="Home" />
+
+
+                <TextView
+                    android:id="@+id/ndStaffBtnJob"
+                    style="@style/TextViewCommonProfile"
+                    android:layout_marginBottom="17dp"
+                    android:text="Pekerjaan Saya" />
+
+                <TextView
+                    android:id="@+id/ndStaffBtnChat"
+                    style="@style/TextViewCommonProfile"
+                    android:layout_marginBottom="17dp"
+                    android:text="Chat" />
+
+                <TextView
+                    android:id="@+id/ndStaffBtnInvoice"
+                    style="@style/TextViewCommonProfile"
+                    android:layout_marginBottom="17dp"
+                    android:text="Invoice" />
+
+                <TextView
+                    android:id="@+id/ndStaffBtnProfile"
+                    style="@style/TextViewCommonProfile"
+                    android:text="Profile" />
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="50dp"
+                    android:layout_height="4dp"
+                    android:backgroundTint="@color/colorBlack"
+                    android:background="@drawable/bootstrap_blue_rounded"/>
+                <TextView
+                    android:id="@+id/ndStaffBtnAbout"
+                    style="@style/TextViewCommonProfile"
+                    android:layout_marginBottom="17dp"
+                    android:drawableTint="@color/colorBase"
+                    android:text="About This App" />
+
+                <TextView
+                    android:id="@+id/ndStaffBtnHelp"
+                    style="@style/TextViewCommonProfile"
+                    android:layout_marginBottom="17dp"
+                    android:text="Bantuan / Hubungi Kami" />
+
+                <TextView
+                    android:id="@+id/ndStaffBtnLogOut"
+                    style="@style/TextViewCommonProfile"
+                    android:text="Log Out" />
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="50dp"
+                    android:layout_height="4dp"
+                    android:backgroundTint="@color/colorBlack"
+                    android:background="@drawable/bootstrap_blue_rounded"/>
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/labelName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/sf_pro_display_light"
+                        android:gravity="center"
+                        android:text="Sawit Jaya"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="30sp" />
+                    <TextView
+                        android:id="@+id/jargon"
+                        android:layout_below="@id/labelName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/sf_pro_display_light"
+                        android:gravity="center"
+                        android:text="Jual Tandan Buah Segar lebih mudah dengan
+Aplikasi Sawitz !"
+                        android:textAlignment="center"
+                        android:textColor="#000" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_above="@+id/labelName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_sawitz"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/lyt_navdraw_staff_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+        <!--        android:background="#80ffffff">-->
+
+
+    </LinearLayout>
+
+</LinearLayout>

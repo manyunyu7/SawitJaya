@@ -5,8 +5,7 @@
     android:id="@+id/lyt_user_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPurplish"
-    tools:context=".user_home">
+    android:background="@color/colorPurplish">
 
 
     <ScrollView
@@ -80,7 +79,7 @@
             <RelativeLayout
                 android:id="@+id/containerPrice"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="230dp"
                 android:layout_below="@id/containerGreeting"
                 android:layout_margin="10dp"
                 android:background="@drawable/rs_background_price"
@@ -88,17 +87,25 @@
 
                 <TextView
                     android:id="@+id/tv1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Harga TBS Sekarang" />
+                    android:text="Harga TBS" />
+
+                <ImageButton
+                    android:id="@+id/btnRefreshPrice"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/ic_circle_blue_wave"
+                    android:src="@drawable/ic_baseline_refresh_24" />
+
 
                 <TextView
+                    android:layout_below="@+id/tv1"
                     android:id="@+id/tvTBSPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/tv3"
-                    android:layout_below="@+id/tv1"
                     android:fontFamily="@font/montserrat_regular"
                     android:gravity="center|start"
                     android:text="800,09"
@@ -107,35 +114,49 @@
 
                 <TextView
                     android:id="@+id/tvKg"
-                    android:layout_width="match_parent"
+                    android:layout_toEndOf="@id/tvTBSPrice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
+                    android:layout_below="@id/tvTBSPrice"
                     android:layout_marginStart="10dp"
-                    android:layout_toRightOf="@id/tvTBSPrice"
                     android:fontFamily="@font/montserrat_regular"
                     android:text="/Kg"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/tvMarginPrice"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvKg"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toRightOf="@id/tvTBSPrice"
-                    android:text="Margin 0,9%"
-                    android:textSize="10sp" />
+                    android:layout_below="@id/tvTBSPrice"
+                    android:layout_alignParentStart="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Margin : "
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvMarginPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0,9"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="%"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
 
                 <TextView
-
                     android:id="@+id/tv3"
+                    android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Harga ini digunakan sebagai acuan Harga jual TBS pada hari dikurangi dengan margin"
+                    android:text="Harga ini digunakan sebagai acuan Harga jual TBS pada hari ini dikurangi dengan margin"
                     android:textSize="10sp" />
 
             </RelativeLayout>
@@ -193,8 +214,8 @@
                             android:layout_alignParentBottom="true"
                             android:backgroundTint="@color/colorNeoBlue"
                             android:fontFamily="@font/poppins_regular"
-                            android:textColor="@color/colorWhite"
                             android:text="Jual"
+                            android:textColor="@color/colorWhite"
                             android:textSize="12sp"
                             app:cornerRadius="10dp" />
                     </RelativeLayout>
@@ -245,8 +266,8 @@
                             android:layout_alignParentBottom="true"
                             android:backgroundTint="@color/colorNeoBlue"
                             android:fontFamily="@font/poppins_regular"
-                            android:textColor="@color/colorWhite"
                             android:text="Kirim"
+                            android:textColor="@color/colorWhite"
                             android:textSize="12sp"
                             app:cornerRadius="10dp" />
                     </RelativeLayout>
@@ -256,14 +277,14 @@
 
 
             <androidx.cardview.widget.CardView
+                android:layout_marginBottom="50dp"
                 android:id="@+id/containerMenuRow2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/containerMenuRow1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp"
-                >
+                app:cardCornerRadius="10dp">
 
 
                 <RelativeLayout
@@ -392,5 +413,9 @@
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
     </ScrollView>
+
     <include layout="@layout/custom_navdraw" />
+    <include layout="@layout/xd_gps_error"/>
+    <include layout="@layout/layout_loading_transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

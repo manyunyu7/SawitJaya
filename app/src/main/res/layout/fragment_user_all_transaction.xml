@@ -2,101 +2,138 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyt_user_transaction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_all_transaction"
-    android:id="@+id/lyt_user_transaction"
     android:background="@color/colorPurplish">
 
 
+    <LinearLayout
+        android:id="@+id/topContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Riwayat Transaksi"
+            android:textColor="@color/colorNeoBlue"
+            android:textSize="24sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:background="@drawable/rs_header1"
-            android:layout_weight="4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <RelativeLayout
-                android:id="@+id/containerGreeting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <ImageView
-                    android:id="@+id/btnToggleNavdraw"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/ic_hamburger"
-                    android:tint="@color/colorWhite" />
-
-                <TextView
-                    android:id="@+id/greetingMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/btnToggleNavdraw"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Riwayat Transaksi"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/greetingMessage"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Henry Augusta"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-
-        </LinearLayout>
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topContainer">
 
 
         <LinearLayout
-            android:padding="20dp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/rs_cardboard1">
+            android:padding="10dp">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:elevation="4dp"
-                app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="@color/colorWhite">
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardCornerRadius="5dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/containerUserName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Cari berdasarkan tanggal/jenis/nama"
-                    app:startIconDrawable="@drawable/ic_search"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:startIconDrawable="@drawable/ic_search">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etUsername"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.cardview.widget.CardView>
-            <include layout="@layout/list_anggota"/>
-            <include layout="@layout/list_anggota"/>
-            <include layout="@layout/list_anggota"/>
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/btn_rounded_button_blue"
+                        android:text="Menunggu" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/btn_rounded_button_blue"
+                        android:text="Proses" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/btn_rounded_button_blue"
+                        android:text="Selesai" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:layout_scrollFlags="enterAlways|scroll"
+                    app:popupTheme="@style/Theme.AppCompat.Light">
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorNeoBlue"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed"
+                    app:tabTextColor="@color/colorBlack">
+
+                </com.google.android.material.tabs.TabLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/custom_navdraw"/>
+    <include layout="@layout/custom_navdraw" />
 </androidx.constraintlayout.widget.ConstraintLayout>

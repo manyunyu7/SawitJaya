@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.senjapagi.sawitjaya.MainActivity
+import com.senjapagi.sawitjaya.activity.MainActivity
 import com.senjapagi.sawitz.preference.Preference
 
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/xQuestion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/xDialogIcon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="question.json"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:id="@+id/xQuestionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Mengupload\nGambar"
+                android:textAlignment="center"
+                android:textColor="@color/colorNeoBlue" />
+
+            <TextView
+                android:id="@+id/xQuestionContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Mengupload\nGambar"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/xQuestionPButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ya" />
+
+            <Button
+                android:id="@+id/xQuestionNButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/bootstrapRed"
+                android:text="Tidak" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
