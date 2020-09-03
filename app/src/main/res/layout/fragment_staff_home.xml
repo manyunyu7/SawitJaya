@@ -8,6 +8,13 @@
     android:background="@color/colorPurplish">
 
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlStaffHome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -117,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="50"
+                            android:text=".."
                             android:textColor="@color/colorBlack"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -324,7 +331,9 @@
 
         </LinearLayout>
     </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <include layout="@layout/layout_error_dialog"/>
     <include layout="@layout/custom_navdraw_staff" />
     <include layout="@layout/layout_loading_transparent" />
 

@@ -15,41 +15,45 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/sf_pro_display"
                 android:text="Semua Request Jemput"
-                android:textSize="17dp"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/colorBlack"
+                android:textSize="17dp" />
+
             <TextView
                 android:id="@+id/staffAllOrderErrorPlaceHolder"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/sf_pro_display"
                 android:text="@string/hello_blank_fragment"
-                android:textColor="@color/colorPurple" />
+                android:textColor="@color/colorPurple"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:padding="10dp"
                 android:id="@+id/recyclerViewStaffAllOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="10dp"
                 tools:listitem="@layout/list_order" />
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include layout="@layout/layout_empty_state"/>
     <include layout="@layout/layout_loading_transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

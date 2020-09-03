@@ -42,9 +42,45 @@ class UserOrderDetail : AppCompatActivity() {
         getDetail()
 
 
-
         //waiting,processed,successed,failed
 
+
+        when (status) {
+
+            "waiting" -> {
+                btnOrdSeeInvoice.setOnClickListener {
+                    makeToast("Invoice baru tersedia setelah order sukses dijemput")
+                }
+                btnOrdDetailChat.visibility = View.GONE
+//                stat = "Menunggu Diproses"
+//                btnOrdDetailChat.visibility = View.GONE
+            }
+            "processed" -> {
+                btnOrdDetailCancel.visibility=View.GONE
+                btnOrdSeeInvoice.setOnClickListener {
+                    makeToast("Invoice baru tersedia setelah order sukses dijemput")
+                }
+//                stat = "Sedang Diproses"
+//                btnStaffAcceptOrder.visibility = View.GONE
+//                btnStaffInputInvoice.visibility = View.VISIBLE
+//                btnOrdDetailChat.visibility = View.VISIBLE
+            }
+            "successed" -> {
+                btnOrdDetailCancel.visibility=View.GONE
+                btnOrdDetailChat.visibility = View.GONE
+//                stat = "Selesai"
+//                btnStaffSeeInvoice.visibility=View.VISIBLE
+//                btnStaffAcceptOrder.visibility = View.GONE
+//                btnOrdDetailChat.visibility=View.GONE
+//                btnStaffUntakeOrder.visibility=View.GONE
+            }
+            "failed" -> {
+                btnOrdDetailCancel.visibility=View.GONE
+                btnOrdSeeInvoice.setOnClickListener {
+                    makeToast("Invoice baru tersedia setelah order sukses dijemput")
+                }
+            }
+        }
         if (status == "processed" || status == "failed") {
             btnOrdDetailCancel.setOnClickListener {
                 makeToast("Order yang sudah diproses tidak dapat dibatalkan")
@@ -69,15 +105,16 @@ class UserOrderDetail : AppCompatActivity() {
             return e.toString()
         }
     }
+
     private fun getDetail() {
         try {
-            anim_loading.visibility=View.VISIBLE
+            anim_loading.visibility = View.VISIBLE
             AndroidNetworking.get(api.USER_ORDER_DETAIL + intent.getStringExtra("id"))
                 .addHeaders("token", Preference(this).getPrefString(const.TOKEN))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
-                        anim_loading.visibility=View.GONE
+                        anim_loading.visibility = View.GONE
                         if (response.getBoolean("success_status")) {
                             try {
                                 val raz = response.getJSONObject("data")
@@ -154,14 +191,14 @@ class UserOrderDetail : AppCompatActivity() {
                             } catch (e: Exception) {
                                 Log.e("Error apa tuh", e.toString())
                             }
-                        }else{
+                        } else {
                             //if success status is not true or in other words "failed"
                             makeToast("Gagal Mengambil Data")
                         }
                     }
 
                     override fun onError(anError: ANError?) {
-                        anim_loading.visibility=View.GONE
+                        anim_loading.visibility = View.GONE
                         makeToast("Gagal Terhubung dengan Server , Silakan coba lagi nanti")
                     }
 
@@ -173,7 +210,7 @@ class UserOrderDetail : AppCompatActivity() {
 
     private fun downloadPicasso(url: String, target: ImageView) {
         try {
-            anim_loading.visibility=View.VISIBLE
+            anim_loading.visibility = View.VISIBLE
             Picasso.get()
                 .load(url)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -183,12 +220,12 @@ class UserOrderDetail : AppCompatActivity() {
                 .error(R.drawable.ic_profile)
                 .into(target, object : Callback {
                     override fun onSuccess() {
-                        anim_loading.visibility=View.GONE
+                        anim_loading.visibility = View.GONE
                         target.scaleType = ImageView.ScaleType.CENTER_CROP
                     }
 
                     override fun onError(e: Exception?) {
-                        anim_loading.visibility=View.GONE
+                        anim_loading.visibility = View.GONE
                         target.visibility = View.GONE
                         Log.e("Picasso Get Image Error", e.toString())
                     }

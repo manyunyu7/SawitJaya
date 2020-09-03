@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lyt_internet_error"
-    android:visibility="gone"
+    android:visibility="visible"
     android:clickable="true"
     android:background="@color/colorWhite"
     xmlns:android="http://schemas.android.com/apk/res/android"

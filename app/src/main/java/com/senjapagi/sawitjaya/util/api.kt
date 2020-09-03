@@ -1,22 +1,23 @@
 package com.senjapagi.sawitjaya.util
 
 object api {
-    const val WEBSITE = "http://103.253.27.125:10000/sawitz/";
-    const val BASE_URL = "http://103.253.27.125:10000/sawitz/index.php?/api/";
-    const val UPLOAD = "$BASE_URL/user/jual/create";
-    const val REGISTER = "$BASE_URL/register";
-    const val LOGIN = "http://103.253.27.125:10000/sawitz/index.php?/api/login";
+    const val WEBSITE = "http://103.253.27.21:10000/sawitz/"
+    const val BASE_URL = "http://103.253.27.21:10000/sawitz/index.php?/api/"
+    const val UPLOAD = "${BASE_URL}/user/jual/create"
+    const val REGISTER = "${BASE_URL}/register"
+    const val LOGIN = "${BASE_URL}login"
 
-    const val USER_EDIT_PROFILE="http://103.253.27.125:10000/sawitz/index.php?/api/user/user_edit"
+    const val USER_EDIT_PROFILE="${BASE_URL}user/user_edit"
+    const val USER_HOME="${BASE_URL}user/home"
 
-    const val STAFF_EDIT_PROFILE="http://103.253.27.125:10000/sawitz/index.php?/api/staff/user_edit"
+    const val STAFF_EDIT_PROFILE="${BASE_URL}staff/user_edit"
 
     const val USER_DATA="${BASE_URL}user/user_profile"
 
     const val STAFF_DATA="${BASE_URL}staff/user_profile"
 
 
-    const val PROFILE_PIC_URL = "http://103.253.27.125:10000/sawitz/assets/uploads/photos_profile/";
+    const val PROFILE_PIC_URL = "${WEBSITE}/assets/uploads/photos_profile/";
     const val CURRENT_PRICE = "${BASE_URL}price";
 
     const val USER_ORDER_ALL = "$BASE_URL/user/jual";
@@ -30,7 +31,12 @@ object api {
 //    (header) token
 
     const val STAFF_ORDER_ALL = "$BASE_URL/staff/jual/status/available";
+    const val STAFF_ORDER_SUCCESSED = "$BASE_URL/staff/jual/status/successed";
+    const val STAFF_ORDER_FAILED = "$BASE_URL/staff/jual/status/failed";
     const val STAFF_ORDER_PROCESSED = "$BASE_URL/staff/jual/status/active";
+
+//    http://103.253.27.21:10000/sawitz/index.php?/api/staff/jual/8/invoice
+    const val STAFF_UPLOAD_INVOICE = "$BASE_URL/staff/jual/";
 
     const val STAFF_ORDER_DETAIL = "$BASE_URL/staff/jual/";
     const val STAFF_TAKE_ORDER = "$BASE_URL/staff/jual/";

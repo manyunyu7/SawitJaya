@@ -20,6 +20,7 @@ import com.senjapagi.sawitz.preference.Preference
 import kotlinx.android.synthetic.main.fragment_order_staff_all.*
 import kotlinx.android.synthetic.main.layout_loading_transparent.*
 import org.json.JSONObject
+import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,70 +64,75 @@ class orderStaffAll : Fragment() {
     }
 
     private fun getOrder() {
-        recyclerViewStaffAllOrder.setHasFixedSize(true)
-        recyclerViewStaffAllOrder.layoutManager = LinearLayoutManager(
-            context, RecyclerView.VERTICAL, false)
+        try {
+            recyclerViewStaffAllOrder.setHasFixedSize(true)
+            recyclerViewStaffAllOrder.layoutManager = LinearLayoutManager(
+                context, RecyclerView.VERTICAL, false)
 
-        staffAllOrderErrorPlaceHolder.visibility=View.GONE
-        anim_loading.visibility=View.VISIBLE
-        data.clear()
-        AndroidNetworking.get(api.STAFF_ORDER_ALL)
-            .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    anim_loading?.visibility=View.GONE
-                    staffAllOrderErrorPlaceHolder.text=response.toString()
-                    val raz = response.getJSONArray("data")
-                    if(raz.length()<1){
-                        staffAllOrderErrorPlaceHolder?.visibility=View.VISIBLE
-                        staffAllOrderErrorPlaceHolder?.text="Anda Belum Memiliki Order Aktif"
-                    }
-                    if (response.getBoolean("success_status")) {
-                        for (i in 0 until raz.length()) {
-                            val id = raz.getJSONObject(i).getString("id")
-                            val user_id = raz.getJSONObject(i).getString("user_id")
-                            val est_weight = raz.getJSONObject(i).getString("est_weight")
-                            val address = raz.getJSONObject(i).getString("addr")
-                            val cord_lat = raz.getJSONObject(i).getString("cord_lat")
-                            val cord_lon = raz.getJSONObject(i).getString("cord_lon")
-                            val alt_contact = raz.getJSONObject(i).getString("alt_contact")
-                            val created_at = raz.getJSONObject(i).getString("created_at")
-                            val updated_at = raz.getJSONObject(i).getString("updated_at")
-                            val deleted_at = raz.getJSONObject(i).getString("deleted_at")
-                            val status = raz.getJSONObject(i).getString("status")
-
-                            data?.add(
-                                modelReqOrder(
-                                    id,
-                                    user_id,
-                                    est_weight,
-                                    address,
-                                    cord_lat,
-                                    cord_lon,
-                                    alt_contact,
-                                    created_at,
-                                    updated_at,
-                                    deleted_at,
-                                    status
-                                )
-                            )
-
+            staffAllOrderErrorPlaceHolder.visibility=View.GONE
+            anim_loading.visibility=View.VISIBLE
+            data.clear()
+            AndroidNetworking.get(api.STAFF_ORDER_ALL)
+                .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+                .build()
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(response: JSONObject) {
+                        anim_loading?.visibility=View.GONE
+                        staffAllOrderErrorPlaceHolder.text=response.toString()
+                        val raz = response.getJSONArray("data")
+                        if(raz.length()<1){
+                            staffAllOrderErrorPlaceHolder?.visibility=View.VISIBLE
+                            staffAllOrderErrorPlaceHolder?.text="Anda Belum Memiliki Order Aktif"
                         }
-                        adapterOrder = adapterAllOrderStaff(data,context!!)
-                        recyclerViewStaffAllOrder?.adapter = adapterOrder
-                        recyclerViewStaffAllOrder?.visibility = View.VISIBLE
-                    } else {
-                        staffAllOrderErrorPlaceHolder?.text = "Terjadi Error yang tidak diketahui"
+                        if (response.getBoolean("success_status")) {
+                            for (i in 0 until raz.length()) {
+                                val id = raz.getJSONObject(i).getString("id")
+                                val user_id = raz.getJSONObject(i).getString("user_id")
+                                val est_weight = raz.getJSONObject(i).getString("est_weight")
+                                val address = raz.getJSONObject(i).getString("addr")
+                                val cord_lat = raz.getJSONObject(i).getString("cord_lat")
+                                val cord_lon = raz.getJSONObject(i).getString("cord_lon")
+                                val alt_contact = raz.getJSONObject(i).getString("alt_contact")
+                                val created_at = raz.getJSONObject(i).getString("created_at")
+                                val updated_at = raz.getJSONObject(i).getString("updated_at")
+                                val deleted_at = raz.getJSONObject(i).getString("deleted_at")
+                                val status = raz.getJSONObject(i).getString("status")
+
+                                data?.add(
+                                    modelReqOrder(
+                                        id,
+                                        user_id,
+                                        est_weight,
+                                        address,
+                                        cord_lat,
+                                        cord_lon,
+                                        alt_contact,
+                                        created_at,
+                                        updated_at,
+                                        deleted_at,
+                                        status
+                                    )
+                                )
+
+                            }
+                            adapterOrder = adapterAllOrderStaff(data,context!!)
+                            recyclerViewStaffAllOrder?.adapter = adapterOrder
+                            recyclerViewStaffAllOrder?.visibility = View.VISIBLE
+                        } else {
+                            staffAllOrderErrorPlaceHolder?.text = "Terjadi Error yang tidak diketahui"
+                        }
                     }
-                }
 
-                override fun onError(anError: ANError?) {
-                    anim_loading?.visibility=View.GONE
-                    staffAllOrderErrorPlaceHolder?.text = "Gagal Terhubung Dengan Server \n ${anError.toString()}"
-                }
+                    override fun onError(anError: ANError?) {
+                        anim_loading?.visibility=View.GONE
+                        staffAllOrderErrorPlaceHolder?.text = "Gagal Terhubung Dengan Server \n ${anError.toString()}"
+                    }
 
-            })
+                })
+        }catch (err:Exception){
+
+        }
+
     }
 
     override fun onCreateView(

@@ -122,6 +122,7 @@ class StaffOrderDetail : AppCompatActivity() {
     private fun onStatusName() {
         btnStaffInputInvoice.visibility = View.GONE
         btnStaffCancelOrder.visibility = View.GONE
+        btnStaffSeeInvoice.visibility=View.GONE
         when (intent.getStringExtra("status")) {
             "waiting" -> {
                 stat = "Menunggu Diproses"
@@ -135,9 +136,17 @@ class StaffOrderDetail : AppCompatActivity() {
             }
             "successed" -> {
                 stat = "Selesai"
+                btnStaffSeeInvoice.visibility=View.VISIBLE
+                btnStaffAcceptOrder.visibility = View.GONE
+                btnOrdDetailChat.visibility=View.GONE
+                btnStaffUntakeOrder.visibility=View.GONE
             }
             "failed" -> {
                 stat = "Dibatalkan"
+                btnStaffAcceptOrder.visibility = View.GONE
+                btnOrdDetailChat.visibility=View.GONE
+                btnStaffUntakeOrder.visibility=View.GONE
+
             }
         }
         orderDetStatus.text = stat

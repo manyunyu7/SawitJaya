@@ -23,6 +23,7 @@ import com.senjapagi.sawitjaya.util.api
 import com.senjapagi.sawitz.preference.Preference
 import kotlinx.android.synthetic.main.custom_navdraw_staff.*
 import kotlinx.android.synthetic.main.fragment_staff_home.*
+import kotlinx.android.synthetic.main.layout_error_dialog.*
 import kotlinx.android.synthetic.main.layout_loading_transparent.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -53,6 +54,13 @@ class fragment_staff_home : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        getOrder()
+    }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +74,10 @@ class fragment_staff_home : Fragment() {
         timeKeeper()
         getOrder()
 
-
+        srlStaffHome.setOnRefreshListener {
+            srlStaffHome.isRefreshing=false
+            getOrder()
+        }
         btnStaffHomeTakeOrder.setOnClickListener {
             moveActivity(StaffOrderPage())
         }
@@ -164,10 +175,32 @@ class fragment_staff_home : Fragment() {
                 }
 
                 override fun onError(anError: ANError?) {
-
+                    errorDialog(
+                        "Gagal Terhubung Dengan Server",
+                        "Periksa Koneksi Internet Anda atau coba lagi nanti"
+                    )
                 }
 
             })
+    }
+
+    private fun errorDialog(title: String, message: String) {
+        xError.visibility = View.VISIBLE
+        xError.animation =
+            AnimationUtils.loadAnimation(context, R.anim.item_animation_appear_bottom)
+        xErrorTitle.text = title
+        xErrorContent.text = message
+        xErrorPButton.setOnClickListener {
+            xError.visibility = View.GONE
+            xError.animation =
+                AnimationUtils.loadAnimation(context, R.anim.item_animation_gone_bottom)
+            getOrder()
+        }
+        xErrorNeutralButton.setOnClickListener {
+            xError.animation =
+                AnimationUtils.loadAnimation(context, R.anim.item_animation_gone_bottom)
+            xError.visibility = View.GONE
+        }
     }
 
 

@@ -10,7 +10,7 @@
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/staffSrlOrderProcessed"
+        android:id="@+id/staffSrlOrderFailed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,11 +27,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_display"
-                android:text="Request Pelanggan Gagal"
+                android:text="Request Pelanggan Batal/Gagal"
                 android:textSize="17dp"
                 android:textColor="@color/colorBlack" />
             <TextView
-                android:id="@+id/staffAllOrderErrorPlaceHolder"
+                android:id="@+id/staffFailedOrderErrorPlaceHolder"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
@@ -43,13 +43,15 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="10dp"
-                android:id="@+id/recyclerViewStaffProcessedOrder"
+                android:id="@+id/recyclerViewStaffFailedOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/list_order" />
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include layout="@layout/layout_empty_state"/>
+    <include layout="@layout/layout_internet_error"/>
     <include layout="@layout/layout_loading_transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

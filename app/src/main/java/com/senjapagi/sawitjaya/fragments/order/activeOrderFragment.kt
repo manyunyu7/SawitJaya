@@ -61,76 +61,82 @@ class activeOrderFragment : Fragment() {
         recyclerViewActiveOrder?.visibility = View.VISIBLE
         recyclerViewActiveOrder.setHasFixedSize(true)
         recyclerViewActiveOrder.layoutManager = LinearLayoutManager(
-            context, RecyclerView.VERTICAL,false)
+            context, RecyclerView.VERTICAL, false
+        )
         getOrder()
 
         srlOrderActive.setOnRefreshListener {
-            srlOrderActive.isRefreshing=false
+            srlOrderActive.isRefreshing = false
             getOrder()
         }
 
     }
 
     private fun getOrder() {
-        activeOrderErrorPlaceHolder.visibility=View.GONE
-        anim_loading.visibility=View.VISIBLE
-        data.clear()
-        AndroidNetworking.get(api.USER_ORDER_ALL)
-            .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    anim_loading.visibility=View.GONE
-                    val raz = response.getJSONArray("data")
-                    if(raz.length()<1){
-                        activeOrderErrorPlaceHolder.visibility=View.VISIBLE
-                        activeOrderErrorPlaceHolder.text="Anda Belum Memiliki Order Aktif"
-                    }
-                    if (response.getBoolean("success_status")) {
-                        for (i in 0 until raz.length()) {
-                            val id = raz.getJSONObject(i).getString("id")
-                            val user_id = raz.getJSONObject(i).getString("user_id")
-                            val est_weight = raz.getJSONObject(i).getString("est_weight")
-                            val address = raz.getJSONObject(i).getString("addr")
-                            val cord_lat = raz.getJSONObject(i).getString("cord_lat")
-                            val cord_lon = raz.getJSONObject(i).getString("cord_lon")
-                            val alt_contact = raz.getJSONObject(i).getString("alt_contact")
-                            val created_at = raz.getJSONObject(i).getString("created_at")
-                            val updated_at = raz.getJSONObject(i).getString("updated_at")
-                            val deleted_at = raz.getJSONObject(i).getString("deleted_at")
-                            val status = raz.getJSONObject(i).getString("status")
-
-                            data.add(
-                                modelReqOrder(
-                                    id,
-                                    user_id,
-                                    est_weight,
-                                    address,
-                                    cord_lat,
-                                    cord_lon,
-                                    alt_contact,
-                                    created_at,
-                                    updated_at,
-                                    deleted_at,
-                                    status
-                                )
-                            )
-
+        try {
+            activeOrderErrorPlaceHolder.visibility = View.GONE
+            anim_loading.visibility = View.VISIBLE
+            data.clear()
+            AndroidNetworking.get(api.USER_ORDER_ALL)
+                .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+                .build()
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(response: JSONObject) {
+                        anim_loading.visibility = View.GONE
+                        val raz = response.getJSONArray("data")
+                        if (raz.length() < 1) {
+                            activeOrderErrorPlaceHolder.visibility = View.VISIBLE
+                            activeOrderErrorPlaceHolder.text = "Anda Belum Memiliki Order Aktif"
                         }
-                        adapterOrder = adapterAllOrder(data,context!!)
-                        recyclerViewActiveOrder?.adapter = adapterOrder
-                        recyclerViewActiveOrder?.visibility = View.VISIBLE
-                    } else {
-                        activeOrderErrorPlaceHolder.text = "Terjadi Error yang tidak diketahui"
+                        if (response.getBoolean("success_status")) {
+                            for (i in 0 until raz.length()) {
+                                val id = raz.getJSONObject(i).getString("id")
+                                val user_id = raz.getJSONObject(i).getString("user_id")
+                                val est_weight = raz.getJSONObject(i).getString("est_weight")
+                                val address = raz.getJSONObject(i).getString("addr")
+                                val cord_lat = raz.getJSONObject(i).getString("cord_lat")
+                                val cord_lon = raz.getJSONObject(i).getString("cord_lon")
+                                val alt_contact = raz.getJSONObject(i).getString("alt_contact")
+                                val created_at = raz.getJSONObject(i).getString("created_at")
+                                val updated_at = raz.getJSONObject(i).getString("updated_at")
+                                val deleted_at = raz.getJSONObject(i).getString("deleted_at")
+                                val status = raz.getJSONObject(i).getString("status")
+
+                                data.add(
+                                    modelReqOrder(
+                                        id,
+                                        user_id,
+                                        est_weight,
+                                        address,
+                                        cord_lat,
+                                        cord_lon,
+                                        alt_contact,
+                                        created_at,
+                                        updated_at,
+                                        deleted_at,
+                                        status
+                                    )
+                                )
+
+                            }
+                            adapterOrder = adapterAllOrder(data, context!!)
+                            recyclerViewActiveOrder?.adapter = adapterOrder
+                            recyclerViewActiveOrder?.visibility = View.VISIBLE
+                        } else {
+                            activeOrderErrorPlaceHolder.text = "Terjadi Error yang tidak diketahui"
+                        }
                     }
-                }
 
-                override fun onError(anError: ANError?) {
-                    anim_loading.visibility=View.GONE
-                    activeOrderErrorPlaceHolder.text = "Gagal Terhubung Dengan Server \n ${anError.toString()}"
-                }
+                    override fun onError(anError: ANError?) {
+                        anim_loading.visibility = View.GONE
+                        activeOrderErrorPlaceHolder.text =
+                            "Gagal Terhubung Dengan Server \n ${anError.toString()}"
+                    }
 
-            })
+                })
+        } catch (err: Exception) {
+
+        }
     }
 
     companion object {

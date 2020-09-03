@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/xSuccess"
+    android:id="@+id/xError"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -25,17 +25,16 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:visibility="visible"
-                android:id="@+id/xSuccessDialogIcon"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:foregroundGravity="center"
                 app:lottie_autoPlay="true"
-                app:lottie_fileName="success1.json"
+                app:lottie_fileName="error.json"
                 app:lottie_loop="true" />
 
             <TextView
-                android:id="@+id/xSuccessTitle"
+                android:id="@+id/xErrorTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -45,7 +44,7 @@
                 android:textColor="@color/colorNeoBlue" />
 
             <TextView
-                android:id="@+id/xSuccessContent"
+                android:id="@+id/xErrorContent"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -56,10 +55,17 @@
                 android:textSize="12dp" />
 
             <Button
-                android:id="@+id/xSuccessPButton"
+                android:id="@+id/xErrorPButton"
+                android:backgroundTint="@color/colorGreen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="OK" />
+                android:text="Coba Lagi" />
+
+            <Button
+                android:id="@+id/xErrorNeutralButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Kembali" />
 
 
 

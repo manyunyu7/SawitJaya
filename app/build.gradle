@@ -73,7 +73,7 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'com.karumi:dexter:6.2.0' //for easy any permission
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+' // image cropper library
-
+    implementation 'com.github.gcacace:signature-pad:1.3.1'  //signature pad
 
     implementation 'id.zelory:compressor:1.0.4' //Image Compressor
     implementation 'com.github.nguyenhoanglam:ImagePicker:1.4.3' //image cropper

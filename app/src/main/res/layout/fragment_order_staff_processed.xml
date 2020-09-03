@@ -50,6 +50,7 @@
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include layout="@layout/layout_empty_state"/>
     <include layout="@layout/layout_loading_transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

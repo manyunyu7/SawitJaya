@@ -295,6 +295,7 @@
                     android:padding="15dp">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -355,16 +356,18 @@
 
 
                         <TextView
+                            android:id="@+id/invoiceActive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="1 Invoice"
+                            android:text="@string/LOADING"
                             android:textColor="@color/colorGreen"
                             android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/containerTotalTransaction"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -415,6 +418,7 @@
     </ScrollView>
 
     <include layout="@layout/custom_navdraw" />
+    <include layout="@layout/layout_internet_error"/>
     <include layout="@layout/xd_gps_error"/>
     <include layout="@layout/layout_loading_transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

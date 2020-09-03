@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.senjapagi.sawitjaya.Logout
@@ -30,6 +31,7 @@ import com.senjapagi.sawitjaya.util.api
 import com.senjapagi.sawitz.preference.Preference
 import kotlinx.android.synthetic.main.custom_navdraw.*
 import kotlinx.android.synthetic.main.fragment_user_home.*
+import kotlinx.android.synthetic.main.layout_error_dialog.*
 import kotlinx.android.synthetic.main.layout_loading_transparent.*
 import kotlinx.android.synthetic.main.xd_gps_error.*
 import org.json.JSONObject
@@ -230,6 +232,49 @@ class fragment_user_home : Fragment() {
     private fun makeToast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
+
+    private fun getTransaksi(){
+        AndroidNetworking.get(api.USER_HOME)
+            .addHeaders("token",Preference(context!!).getPrefString(const.TOKEN))
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener{
+                override fun onResponse(response: JSONObject) {
+                    if(response.getBoolean("success_status")){
+                        val totalTransaction = response.getJSONObject("data").getString("total_jual")
+                        invoiceActive.text = totalTransaction + "Invoice"
+                    }else{
+                        errorDialog("Gagal Terhubung Dengan Server","Terjadi Kesalahan saat mengambil data transaksi")
+                    }
+                }
+
+                override fun onError(anError: ANError?) {
+                    errorDialog("Gagal Terhubung Dengan Server","Periksa Koneksi Internet Anda dan Coba Lagi Nanti")
+                }
+
+            })
+    }
+
+    private fun errorDialog(title: String, message: String) {
+        xError.visibility = View.VISIBLE
+        xError.animation =
+            AnimationUtils.loadAnimation(context, R.anim.item_animation_appear_bottom)
+        xErrorTitle.text = title
+        xErrorContent.text=message
+        xErrorPButton.setOnClickListener {
+            xError.visibility = View.GONE
+            xError.animation =
+                AnimationUtils.loadAnimation(context, R.anim.item_animation_gone_bottom)
+            getTransaksi()
+        }
+        xErrorNeutralButton.setOnClickListener {
+            xError.animation=
+                AnimationUtils.loadAnimation(context, R.anim.item_animation_gone_bottom)
+            xError.visibility=View.GONE
+        }
+    }
+
+
 
 
     override fun onCreateView(

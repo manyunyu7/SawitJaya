@@ -323,7 +323,7 @@
                           android:padding="15dp"
                           android:scrollbarStyle="insideInset"
                           android:scrollbars="vertical"
-                          android:text="Jl. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810" />
+                          android:text="Memuat Alamat" />
 
                   </com.google.android.material.textfield.TextInputLayout>
 
@@ -392,7 +392,20 @@
                       android:textColor="@color/colorWhite"
                       android:textSize="12dp" />
 
-                  <Button
+                  <com.google.android.material.button.MaterialButton
+                      android:id="@+id/btnOrdSeeInvoice"
+                      android:drawableLeft="@drawable/ic_round_chrome_invoice"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:backgroundTint="@color/colorNeoBlue"
+                      android:fontFamily="@font/poppins_regular"
+                      android:text="Lihat Invoice"
+                      android:textColor="@color/colorWhite"
+                      android:textSize="12dp" />
+
+                  <com.google.android.material.button.MaterialButton
+                      android:drawableLeft="@drawable/ic_baseline_delete_forever_24"
+                      android:drawableStart="@drawable/ic_baseline_cancel_24"
                       android:layout_marginBottom="50dp"
                       android:id="@+id/btnOrdDetailCancel"
                       android:layout_width="match_parent"

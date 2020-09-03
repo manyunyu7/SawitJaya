@@ -57,7 +57,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rs_cardboard1"
+                android:background="@drawable/rs_cardview_half"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -234,6 +234,7 @@
     </LinearLayout>
 
     <include layout="@layout/xd_success_request_sell"/>
+    <include layout="@layout/layout_loading_transparent" />
     <include layout="@layout/layout_loading_upload" />
     <include layout="@layout/layout_input_error"/>
     <include layout="@layout/layout_question_dialog"/>

@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -39,7 +40,9 @@ import kotlinx.android.synthetic.main.custom_navdraw.*
 import kotlinx.android.synthetic.main.custom_navdraw_staff.*
 import kotlinx.android.synthetic.main.fragment_user_home.btnToggleNavdraw
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.android.synthetic.main.layout_error_dialog.*
 import kotlinx.android.synthetic.main.layout_loading_transparent.*
+import kotlinx.android.synthetic.main.layout_success_dialog.*
 import kotlinx.android.synthetic.main.user_profile.lyt_user_profile
 import org.json.JSONObject
 import java.io.File
@@ -81,14 +84,14 @@ class fragment_profile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         imageFileProfile = null
-
+        xError.visibility=View.GONE
         val bundle = this.arguments
         if (bundle != null) {
 
             val source = bundle.getString("source")
             makeToast(source.toString())
             if (source == "staff") {
-                sourceCode=2
+                sourceCode = 2
                 updateURL = api.STAFF_EDIT_PROFILE
                 getDataURL = api.STAFF_DATA
             } else {
@@ -112,7 +115,7 @@ class fragment_profile : Fragment() {
             ndBtnLogOut.setOnClickListener { val logout = Logout(context!!);logout.logoutDialog() }
             ndBtnProfile.setOnClickListener { changeLayout(fragment_profile()) }
             ndBtnHome.setOnClickListener { changeLayout(fragment_user_home()) }
-            ndBtnSell.setOnClickListener {  }
+            ndBtnSell.setOnClickListener { }
             ndBtnHistory.setOnClickListener { changeLayout(fragment_user_all_transaction()) }
             ndBtnAbout.setOnClickListener { changeLayout(fragment_about()) }
         }
@@ -151,7 +154,7 @@ class fragment_profile : Fragment() {
 
     private fun updateLayout() {
         val pref = Preference(context!!)
-        tvProfileTelp.text=pref.getPrefString(const.PHONE)
+        tvProfileTelp.text = pref.getPrefString(const.PHONE)
         tvProfileName.text = pref.getPrefString(const.NAME)
         tvProfileEmail.text = Preference(context!!).getPrefString(const.EMAIL)
         etProfileName.setText(pref.getPrefString(const.NAME))
@@ -347,6 +350,7 @@ class fragment_profile : Fragment() {
 
                 override fun onResponse(response: JSONObject) {
                     if (response.getBoolean("success_status")) {
+                        successDialog("Berhasil Mengupdate Profile","")
                         val raz = response.getJSONObject("data")
                         Preference(context!!).save(const.NAME, raz.getString("name"))
                         Preference(context!!).save(const.EMAIL, raz.getString("email"))
@@ -362,6 +366,12 @@ class fragment_profile : Fragment() {
                         )
                         Preference(context!!).save(const.USER_NIK, raz.getString("identity_number"))
                         updateLayout()
+
+                    }else{
+                        errorDialog(
+                            "Gagal Mengupdate Data User",
+                            "Periksa dan Pastikan Data anda sudah terisi dengan benar"
+                        )
                     }
                     anim_loading.visibility = View.GONE
                     makeToast(response.toString())
@@ -369,6 +379,10 @@ class fragment_profile : Fragment() {
                 }
 
                 override fun onError(anError: ANError?) {
+                    errorDialog(
+                        "Gagal Mengupdate Data User",
+                        "Periksa koneksi internet anda dan coba lagi nanti"
+                    )
                     anim_loading.visibility = View.GONE
                     makeToast(anError.toString())
                     Log.e("upload eror", anError.toString())
@@ -396,6 +410,7 @@ class fragment_profile : Fragment() {
                 override fun onResponse(response: JSONObject) {
                     anim_loading.visibility = View.GONE
                     if (response.getBoolean("success_status")) {
+                        successDialog("Berhasil Mengupdate Profile","")
                         val raz = response.getJSONObject("data")
                         Preference(context!!).save(const.NAME, raz.getString("name"))
                         Preference(context!!).save(const.EMAIL, raz.getString("email"))
@@ -415,6 +430,10 @@ class fragment_profile : Fragment() {
                 }
 
                 override fun onError(anError: ANError?) {
+                    errorDialog(
+                        "Gagal Mengupdate Data User",
+                        "Periksa dan Pastikan Data anda sudah benar"
+                    )
                     anim_loading.visibility = View.GONE
                     makeToast(anError.toString())
                     Log.e("upload eror", anError.toString())
@@ -451,10 +470,19 @@ class fragment_profile : Fragment() {
                         )
                         Preference(context!!).save(const.USER_NIK, raz.getString("identity_number"))
                         updateLayout()
+                    }else{
+                        errorDialog(
+                            "Gagal Terhubung dengan Serve",
+                            "Periksa Koneksi Internet Anda atau Coba Lagi Nanti"
+                        )
                     }
                 }
 
                 override fun onError(anError: ANError?) {
+                    errorDialog(
+                        "Gagal Terhubung dengan Server",
+                        "Periksa Koneksi Internet Anda atau Coba Lagi Nanti"
+                    )
                     profileErrorMessage.visibility = View.VISIBLE
                     profileErrorMessage.text =
                         "Gagal Terhubung dengan Server : " + anError.toString()
@@ -470,6 +498,33 @@ class fragment_profile : Fragment() {
 
     private fun makeToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun successDialog(title: String, message: String) {
+        xSuccess.visibility = View.VISIBLE
+        xSuccess.animation = loadAnimation(context, R.anim.item_animation_appear_bottom)
+        xSuccessTitle.text = title
+        xSuccessContent.text=message
+        xSuccessPButton.setOnClickListener {
+            xSuccess.visibility = View.GONE
+            xSuccess.animation = loadAnimation(context, R.anim.item_animation_gone_bottom)
+        }
+    }
+
+    private fun errorDialog(title: String, message: String) {
+        xError.visibility = View.VISIBLE
+        xError.animation = loadAnimation(context, R.anim.item_animation_appear_bottom)
+        xErrorTitle.text = title
+        xErrorContent.text=message
+        xErrorPButton.setOnClickListener {
+            xError.visibility = View.GONE
+            xError.animation = loadAnimation(context, R.anim.item_animation_gone_bottom)
+            getUserData()
+        }
+        xErrorNeutralButton.setOnClickListener {
+            xError.animation= loadAnimation(context,R.anim.item_animation_gone_bottom)
+            xError.visibility=View.GONE
+        }
     }
 
     override fun onCreateView(

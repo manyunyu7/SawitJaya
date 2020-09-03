@@ -131,7 +131,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Henry Augusta Harsono"
+                            android:text="Loading..."
                             android:textAlignment="center"
                             android:textSize="21dp" />
 
@@ -140,7 +140,7 @@
                             style="@style/TextViewCommonMenu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+6289667646987"
+                            android:text=""
                             android:textSize="21dp" />
 
                         <TextView
@@ -148,7 +148,7 @@
                             style="@style/TextViewCommonMenu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="username"
+                            android:text=""
                             android:textSize="21dp" />
 
                         <LinearLayout
@@ -433,7 +433,8 @@
         </LinearLayout>
 
         <include layout="@layout/custom_navdraw" />
-
+        <include layout="@layout/layout_success_dialog"/>
+        <include layout="@layout/layout_error_dialog"/>
         <include layout="@layout/layout_loading_transparent" />
         <include layout="@layout/custom_navdraw_staff"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

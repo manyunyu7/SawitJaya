@@ -10,7 +10,7 @@
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/staffSrlOrderProcessed"
+        android:id="@+id/staffSrlOrderSuccess"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
                 android:textSize="17dp"
                 android:textColor="@color/colorBlack" />
             <TextView
-                android:id="@+id/staffAllOrderErrorPlaceHolder"
+                android:id="@+id/staffSuccessOrderErrorPlaceHolder"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
@@ -43,13 +43,14 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="10dp"
-                android:id="@+id/recyclerViewStaffProcessedOrder"
+                android:id="@+id/recyclerViewStaffSuccessOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/list_order" />
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include layout="@layout/layout_empty_state"/>
     <include layout="@layout/layout_loading_transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,10 +67,10 @@ class finishedOrderFragment : Fragment() {
     }
 
     private fun getOrder() {
-        finishedErrorPlaceHolder.visibility=View.GONE
-        anim_loading.visibility=View.VISIBLE
-        data.clear()
         try {
+            finishedErrorPlaceHolder.visibility=View.GONE
+            anim_loading.visibility=View.VISIBLE
+            data.clear()
             AndroidNetworking.get(api.USER_ORDER_SUCCESS)
                 .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
                 .build()
@@ -128,11 +128,9 @@ class finishedOrderFragment : Fragment() {
                     }
 
                 })
-        }catch (e:Exception){
-            anim_loading.visibility=View.GONE
+        }catch (err:Exception){
+
         }
-
-
     }
 
     companion object {

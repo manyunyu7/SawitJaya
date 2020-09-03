@@ -63,61 +63,66 @@ class allOrderFragment : Fragment() {
 
 
     private fun getOrder() {
-        allOrderErrorPlaceHolder.visibility=View.GONE
-        anim_loading.visibility=View.VISIBLE
-        data.clear()
-        AndroidNetworking.get(api.USER_ORDER_ALL)
-            .addHeaders("token",Preference(context!!).getPrefString(const.TOKEN))
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    anim_loading.visibility=View.GONE
-                    if (response.getBoolean("success_status")) {
-                        val raz = response.getJSONArray("data")
-                        for (i in 0 until raz.length()) {
-                            val id = raz.getJSONObject(i).getString("id")
-                            val user_id = raz.getJSONObject(i).getString("user_id")
-                            val est_weight = raz.getJSONObject(i).getString("est_weight")
-                            val address = raz.getJSONObject(i).getString("addr")
-                            val cord_lat = raz.getJSONObject(i).getString("cord_lat")
-                            val cord_lon = raz.getJSONObject(i).getString("cord_lon")
-                            val alt_contact = raz.getJSONObject(i).getString("alt_contact")
-                            val created_at = raz.getJSONObject(i).getString("created_at")
-                            val updated_at = raz.getJSONObject(i).getString("updated_at")
-                            val deleted_at = raz.getJSONObject(i).getString("deleted_at")
-                            val status = raz.getJSONObject(i).getString("status")
+        try {
+            allOrderErrorPlaceHolder.visibility=View.GONE
+            anim_loading.visibility=View.VISIBLE
+            data.clear()
+            AndroidNetworking.get(api.USER_ORDER_ALL)
+                .addHeaders("token",Preference(context!!).getPrefString(const.TOKEN))
+                .build()
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(response: JSONObject) {
+                        anim_loading.visibility=View.GONE
+                        if (response.getBoolean("success_status")) {
+                            val raz = response.getJSONArray("data")
+                            for (i in 0 until raz.length()) {
+                                val id = raz.getJSONObject(i).getString("id")
+                                val user_id = raz.getJSONObject(i).getString("user_id")
+                                val est_weight = raz.getJSONObject(i).getString("est_weight")
+                                val address = raz.getJSONObject(i).getString("addr")
+                                val cord_lat = raz.getJSONObject(i).getString("cord_lat")
+                                val cord_lon = raz.getJSONObject(i).getString("cord_lon")
+                                val alt_contact = raz.getJSONObject(i).getString("alt_contact")
+                                val created_at = raz.getJSONObject(i).getString("created_at")
+                                val updated_at = raz.getJSONObject(i).getString("updated_at")
+                                val deleted_at = raz.getJSONObject(i).getString("deleted_at")
+                                val status = raz.getJSONObject(i).getString("status")
 
-                            data.add(
-                                modelReqOrder(
-                                    id,
-                                    user_id,
-                                    est_weight,
-                                    address,
-                                    cord_lat,
-                                    cord_lon,
-                                    alt_contact,
-                                    created_at,
-                                    updated_at,
-                                    deleted_at,
-                                    status
+                                data.add(
+                                    modelReqOrder(
+                                        id,
+                                        user_id,
+                                        est_weight,
+                                        address,
+                                        cord_lat,
+                                        cord_lon,
+                                        alt_contact,
+                                        created_at,
+                                        updated_at,
+                                        deleted_at,
+                                        status
+                                    )
                                 )
-                            )
 
+                            }
+                            adapterOrder = adapterAllOrder(data,context!!)
+                            recyclerViewOrder?.adapter = adapterOrder
+                            recyclerViewOrder?.visibility = View.VISIBLE
+                        } else {
+                            allOrderErrorPlaceHolder.text = "Terjadi Error yang tidak diketahui"
                         }
-                        adapterOrder = adapterAllOrder(data,context!!)
-                        recyclerViewOrder?.adapter = adapterOrder
-                        recyclerViewOrder?.visibility = View.VISIBLE
-                    } else {
-                        allOrderErrorPlaceHolder.text = "Terjadi Error yang tidak diketahui"
                     }
-                }
 
-                override fun onError(anError: ANError?) {
-                    anim_loading.visibility=View.GONE
-                    allOrderErrorPlaceHolder.text = "Gagal Terhubung Dengan Server \n ${anError.toString()}"
-                }
+                    override fun onError(anError: ANError?) {
+                        anim_loading.visibility=View.GONE
+                        allOrderErrorPlaceHolder.text = "Gagal Terhubung Dengan Server \n ${anError.toString()}"
+                    }
 
-            })
+                })
+        }catch (err:Exception){
+
+        }
+
     }
 
 

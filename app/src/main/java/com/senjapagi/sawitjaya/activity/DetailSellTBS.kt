@@ -66,7 +66,7 @@ class DetailSellTBS : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_sell_tbs)
-
+        updatePrice()
         margin = Preference(applicationContext).getPrefString(const.MARGIN)?.toDouble() ?: 0.0
         price = Preference(applicationContext).getPrefString(const.PRICE)?.toDouble() ?: 0.0
 
@@ -120,7 +120,6 @@ class DetailSellTBS : AppCompatActivity() {
                     tvEstimasi.visibility = View.GONE
                 } else {
                     tvEstimasi.visibility = View.VISIBLE
-
                     val hasil = (etSellEstimasiBerat.text.toString().toDouble() * price)
                     val number: Double = hasil
                     val number3digits: Double = String.format("%.3f", number).toDouble()
@@ -247,7 +246,7 @@ class DetailSellTBS : AppCompatActivity() {
                     }
 
                 } else {
-                    makeToast("Clip Data is Null")
+                    makeToast("Minimal 2 Gambar TBS")
                 }
             }
         }
@@ -554,18 +553,20 @@ class DetailSellTBS : AppCompatActivity() {
 //                var progress: Long = ((bytesUploaded / totalBytes) * 100.0).toLong()
 //                loadingProgressIndicator.text = "$progress of 100%"
             }
-            .getAsString(object : StringRequestListener {
-                override fun onResponse(response: String) {
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
                     anim_upload.visibility = View.GONE
-                    makeToast(response.toString())
                     lyt_success_req_sell.visibility = View.VISIBLE
-
-//                    if (response.getBoolean("success_status")) {
-//                        //..TODO : DO SOMETHING IF REQUeST IS SUCCESSFUL
-//                        lyt_success_req_sell.visibility=View.VISIBLE
-//                    } else {
-//
-//                    }
+                    if (response.getBoolean("success_status")) {
+                        makeToast(response.getString("message"));
+                        lyt_success_req_sell.visibility = View.VISIBLE
+                    } else {
+                        makeToast(response.getString("message"));
+                        internetError(
+                            "Gagal Mengirim Request",
+                            "Periksa Form permintaan anda dan coba lagi nanti"
+                        )
+                    }
                 }
 
                 override fun onError(anError: ANError?) {
@@ -574,6 +575,10 @@ class DetailSellTBS : AppCompatActivity() {
                     shipper_field.setText(anError?.errorBody.toString())
                     Log.e("Error FAN Upload", anError.toString())
                     Log.e("Error FAN Upload", anError?.errorBody.toString())
+                    internetError(
+                        "Gagal Terhubung Dengan Server",
+                        "Periksa Koneksi Internet anda atau coba lagi nanti"
+                    )
                 }
 
             })
@@ -592,8 +597,8 @@ class DetailSellTBS : AppCompatActivity() {
                         val pricex = raz?.getString("price")
                         val marginx = raz?.getString("price_grade")
 
-                        Preference(applicationContext).save(const.PRICE, price.toString())
-                        Preference(applicationContext).save(const.MARGIN, margin.toString())
+                        Preference(applicationContext).save(const.PRICE, pricex.toString())
+                        Preference(applicationContext).save(const.MARGIN, marginx.toString())
 
                         price = Preference(applicationContext)
                             .getPrefString(const.PRICE)
@@ -608,9 +613,25 @@ class DetailSellTBS : AppCompatActivity() {
 
                 override fun onError(anError: ANError?) {
                     anim_loading.visibility = View.GONE
+                    internetError(
+                        "Gagal Terhubung Dengan Server",
+                        "Periksa Koneksi Internet anda atau coba lagi nanti"
+                    )
                 }
 
             })
+    }
+
+    private fun internetError(message: String, content: String) {
+        xDialog.visibility = View.VISIBLE
+        xDialog.animation = loadAnimation(this, R.anim.item_animation_falldown)
+        xDialogTitle.text = message
+        xDialogContent.text = content
+        xDialogButton.text = "OK"
+        xDialogButton.setOnClickListener {
+            xDialog.visibility = View.GONE
+            xDialog.animation = loadAnimation(this, R.anim.item_animation_fallup)
+        }
     }
 
     private fun makeToast(message: String) {

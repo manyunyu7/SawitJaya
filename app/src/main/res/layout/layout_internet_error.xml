@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xInternetState"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#fff"
+            >
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="error.json"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="Gagal Terhubung Dengan Server , Periksa koneksi anda atau Silakan Coba Lagi Nanti "/>
+
+            <Button
+                    android:id="@+id/xRefreshInternetButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Refresh"/>
+
+        </LinearLayout>
+
+</LinearLayout>

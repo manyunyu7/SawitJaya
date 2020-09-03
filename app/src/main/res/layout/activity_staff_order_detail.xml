@@ -404,6 +404,17 @@
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent">
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStaffSeeInvoice"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorNeoBlue"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Lihat Invoice"
+                    android:drawableLeft="@drawable/ic_baseline_check_circle_24"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12dp" />
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStaffInputInvoice"
                     android:visibility="visible"
                     android:layout_width="match_parent"
