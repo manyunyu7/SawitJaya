@@ -15,6 +15,7 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.senjapagi.sawitjaya.Logout
 import com.senjapagi.sawitjaya.R
+import com.senjapagi.sawitjaya.activity.Tutorial
 import com.senjapagi.sawitjaya.activity.staff.StaffOrderPage
 import com.senjapagi.sawitjaya.fragments.menuSharing.fragment_profile
 import com.senjapagi.sawitjaya.preference.const
@@ -81,6 +82,10 @@ class fragment_staff_home : Fragment() {
         btnStaffHomeTakeOrder.setOnClickListener {
             moveActivity(StaffOrderPage())
         }
+
+        btnTutorial.setOnClickListener {
+            moveActivity(Tutorial())
+        }
         //update profile bundle
         val bundle = Bundle()
         bundle.putString("source", "staff")
@@ -90,12 +95,12 @@ class fragment_staff_home : Fragment() {
 
         //------------Navdraw Operation-------------------//
         NavDrawSetter(context, activity?.window?.decorView!!).setNavDraw()
-        staffHomeName.text = Preference(context!!).getPrefString(const.NAME)
-        btnStaffToggleNavdraw.setOnClickListener { NavDrawToggle("open") }
-        ndStaffBtnLogOut.setOnClickListener { val logout = Logout(context!!);logout.logoutDialog() }
+        staffHomeName.text = Preference(requireContext()).getPrefString(const.NAME)
+        btnStaffToggleNavdraw.setOnClickListener {Logout(requireContext()).logoutDialog()  }
+        ndStaffBtnLogOut.setOnClickListener { val logout = Logout(requireContext());logout.logoutDialog() }
         lyt_navdraw_staff_shadow.setOnClickListener { NavDrawToggle("close") }
         ndStaffBtnProfile.setOnClickListener { changeLayout(fragmentProfile) }
-
+        btnUpdateProfile.setOnClickListener {changeLayout(fragmentProfile)}
     }
 
     private fun moveActivity(dest: Activity) {
@@ -159,7 +164,7 @@ class fragment_staff_home : Fragment() {
 
     private fun getOrder() {
         AndroidNetworking.get(api.STAFF_ORDER_ALL)
-            .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+            .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject) {

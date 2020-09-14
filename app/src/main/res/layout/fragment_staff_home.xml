@@ -15,327 +15,342 @@
         >
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/containerGreeting"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:paddingStart="20dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="20dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/btnStaffToggleNavdraw"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/ic_hamburger"
-                    app:tint="@color/colorPurple" />
-
-                <TextView
-                    android:id="@+id/staffRealClock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/btnStaffToggleNavdraw"
-                    android:layout_alignParentEnd="true"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="10:10"
-                    android:textColor="@color/colorNeoBlue"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/realDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/staffRealClock"
-                    android:layout_alignParentEnd="true"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Minggu, 17 Maret 2020"
-                    android:textColor="@color/colorNeoBlue"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/greetingMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/btnStaffToggleNavdraw"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Selamat Malam"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/staffHomeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/greetingMessage"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="Henry Augusta"
-                    android:textColor="@color/colorShadow"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/containerMenuRow2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/containerMenuRow1"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
-
-
-                <LinearLayout
-                    android:id="@+id/containerB"
+                <RelativeLayout
+                    android:id="@+id/containerGreeting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp">
+
+                    <ImageView
+                        android:id="@+id/btnStaffToggleNavdraw"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/ic_baseline_exit_to_app_24"
+                        app:tint="@color/colorNeoBlue" />
+
+                    <TextView
+                        android:id="@+id/staffRealClock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btnStaffToggleNavdraw"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="10:10"
+                        android:textColor="@color/colorNeoBlue"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/realDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/staffRealClock"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="Minggu, 17 Maret 2020"
+                        android:textColor="@color/colorNeoBlue"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/greetingMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btnStaffToggleNavdraw"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="Selamat Malam"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/staffHomeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/greetingMessage"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="Henry Augusta"
+                        android:textColor="@color/colorShadow"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/containerMenuRow2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/containerMenuRow1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    app:cardCornerRadius="10dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/containerB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Jumlah Order Masuk Hari Ini : "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/containerB"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/totalOrderMasuk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text=".."
+                                android:textColor="@color/colorBlack"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvlabeltotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/totalTransaction"
+                                android:layout_alignParentEnd="true"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Transaksi"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnStaffHomeTakeOrder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="20dp"
+                            android:backgroundTint="@color/colorNeoBlue"
+                            android:text="Riwayat Pekerjaan"
+                            android:textSize="11sp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:visibility="gone"
+                                android:id="@+id/btnRefreshOrderTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                app:fabSize="mini"
+                                android:tint="@color/colorWhite"
+                                android:src="@drawable/ic_baseline_refresh_24"
+                                android:backgroundTint="@color/colorNeoBlue"
+                                android:textSize="11sp" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardBackgroundColor="@color/colorWhite"
+                    app:cardCornerRadius="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Jumlah Order Masuk Hari Ini : "
+                        android:text="Hari ini tercatat ada 56 permintaan penjemputan dari pelanggan, silakan ambil permintaan jemput sawit sebanyak mungkin"
                         android:textColor="@color/colorBlack"
-                        android:textSize="14sp" />
+                        android:textSize="12dp" />
+                </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_below="@id/containerMenuRow2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    >
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/containerB"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/totalOrderMasuk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text=".."
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvlabeltotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/totalTransaction"
-                            android:layout_alignParentEnd="true"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Transaksi"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btnStaffHomeTakeOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/colorNeoBlue"
-                        android:text="Ambil Pekerjaan"
-                        android:textSize="11sp" />
-
-                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:visibility="gone"
-                            android:id="@+id/btnRefreshOrderTotal"
-                            android:layout_width="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            app:fabSize="mini"
-                            android:tint="@color/colorWhite"
-                            android:src="@drawable/ic_baseline_refresh_24"
-                            android:backgroundTint="@color/colorNeoBlue"
-                            android:textSize="11sp" />
-                    </RelativeLayout>
+                            android:src="@mipmap/ic_sawitz"/>
 
+                        <TextView
+                            android:padding="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Aplikasi ini dikembangkan oleh Sawit Jaya"
+                            android:textColor="@color/colorBlack"
+                            android:textAlignment="center"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:id="@+id/containerMenuRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/containerPrice"
+                    android:padding="20dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"
+                        app:cardCornerRadius="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/logo_truck_sell"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@drawable/ic_profile" />
+
+                            <TextView
+                                android:id="@+id/label_sell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/logo_truck_sell"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Update Profile"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/label_sell"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Klik Menu ini untuk melihat dan mengupdate profile kamu"
+                                android:textColor="@color/colorShadow"
+                                android:textSize="10sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnUpdateProfile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:backgroundTint="@color/colorNeoBlue"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Lihat"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12sp"
+                                app:cornerRadius="10dp" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"
+                        app:cardCornerRadius="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/logo_truck_send"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@drawable/ic_baseline_library_books_24"
+                                app:tint="@color/colorNeoBlue" />
+
+                            <TextView
+                                android:id="@+id/label_send"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/logo_truck_send"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Petunjuk Penggunaan"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/label_send"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Klik Menu ini untuk melihat Petunjuk Penggunaan Aplikasi"
+                                android:textColor="@color/colorShadow"
+                                android:textSize="10sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnTutorial"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:backgroundTint="@color/colorNeoBlue"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Lihat"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12sp"
+                                app:cornerRadius="10dp" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Hari ini tercatat ada 56 permintaan penjemputan dari pelanggan, silakan ambil permintaan jemput sawit sebanyak mungkin"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="12dp" />
-            </androidx.cardview.widget.CardView>
-
-
-
-
-            <LinearLayout
-                android:id="@+id/containerMenuRow1"
-                android:layout_width="match_parent"
-                android:layout_height="217dp"
-                android:layout_below="@id/containerPrice"
-                android:padding="20dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="2"
-                    app:cardCornerRadius="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/logo_truck_sell"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_profile" />
-
-                        <TextView
-                            android:id="@+id/label_sell"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/logo_truck_sell"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Proses Order Masuk"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/label_sell"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Kami akan jemput Tandan Buah Segar ke Lokasi-mu"
-                            android:textColor="@color/colorShadow"
-                            android:textSize="10sp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnSell"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:backgroundTint="@color/colorNeoBlue"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Jual"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12sp"
-                            app:cornerRadius="10dp" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="2"
-                    app:cardCornerRadius="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/logo_truck_send"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_truck_send" />
-
-                        <TextView
-                            android:id="@+id/label_send"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/logo_truck_send"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Order Diproses"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/label_send"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Kami akan menunggu kiriman Tandan Buah Segar di Lokasi kami"
-                            android:textColor="@color/colorShadow"
-                            android:textSize="10sp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:backgroundTint="@color/colorNeoBlue"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Kirim"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12sp"
-                            app:cornerRadius="10dp" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
             </LinearLayout>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Riwayat Pekerjaan" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="INVOICE PEKERJAAN SELESAI" />
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include layout="@layout/layout_error_dialog"/>
     <include layout="@layout/custom_navdraw_staff" />
     <include layout="@layout/layout_loading_transparent" />
-
+    <include layout="@layout/layout_error_dialog"/>
+    <include layout="@layout/layout_internet_error"/>
+    <include layout="@layout/xd_gps_error"/>
+    <include layout="@layout/layout_loading_transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

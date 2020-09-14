@@ -9,15 +9,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.senjapagi.sawitjaya.R
+import com.senjapagi.sawitjaya.activity.admin.AdminOrderDetail
 import com.senjapagi.sawitjaya.activity.staff.StaffOrderDetail
 import kotlinx.android.synthetic.main.list_order.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class adapterAllOrderStaff (private val orderData:MutableList<modelReqOrder>, val context:Context) :
+class adapterAllOrderStaff(
+    private val orderData: MutableList<modelReqOrder>,
+    val context: Context,
+    val source: String
+) :
     RecyclerView.Adapter<AllOrderStaffHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllOrderStaffHolder {
-        return AllOrderStaffHolder(LayoutInflater.from(context).inflate(R.layout.list_order,parent,false))
+        return AllOrderStaffHolder(
+            LayoutInflater.from(context).inflate(R.layout.list_order, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -25,55 +32,65 @@ class adapterAllOrderStaff (private val orderData:MutableList<modelReqOrder>, va
     }
 
     override fun onBindViewHolder(holder: AllOrderStaffHolder, position: Int) {
-        holder.addr.text=orderData[position].addr
-        holder.created_at.text=getDateTime(orderData[position].created_at)
-        holder.est_weight.text=orderData[position].est_weight
-        holder.id.text=orderData[position].id
+        holder.addr.text = orderData[position].addr
+        holder.created_at.text = getDateTime(orderData[position].created_at)
+        holder.est_weight.text = orderData[position].est_weight
+        holder.id.text = orderData[position].id
         holder.itemView.setOnClickListener {
-            makeToast("User ID : ${orderData[position].user_id}")
+//            makeToast("User ID : ${orderData[position].user_id}")
         }
 
         //waiting,processed,successed,failed
         var stat = "Error"
-        when(orderData[position].status){
-            "waiting" ->{
-                stat="Menunggu Diproses"
+        when (orderData[position].status) {
+            "waiting" -> {
+                stat = "Menunggu Diproses"
 
             }
-            "processed"->{
-                stat="Sedang Diproses"
+            "processed" -> {
+                stat = "Sedang Diproses"
             }
-            "successed"-> {
+            "successed" -> {
                 stat = "Selesai"
             }
-            "failed"->{
-                stat="Dibatalkan"
+            "failed" -> {
+                stat = "Dibatalkan"
             }
 
         }
-        holder.status.text=stat
+        holder.status.text = stat
 
         holder.btnOrderDetail.setOnClickListener {
             try {
-                val e = Intent(context, StaffOrderDetail::class.java)
-                e.putExtra("id",orderData[position].id)
-                e.putExtra("address",orderData[position].addr)
-                e.putExtra("est",orderData[position].est_weight)
-                e.putExtra("created_at",holder.created_at.text.toString())
-                e.putExtra("status",orderData[position].status)
+                val adm = Intent(context,AdminOrderDetail::class.java)
+
+                val e: Intent
+                if(source=="admin"){
+                    e = Intent(context,AdminOrderDetail::class.java)
+                }else{
+                    e = Intent(context,StaffOrderDetail::class.java)
+                }
+
+                e.putExtra("id", orderData[position].id)
+                e.putExtra("address", orderData[position].addr)
+                e.putExtra("est", orderData[position].est_weight)
+                e.putExtra("created_at", holder.created_at.text.toString())
+                e.putExtra("status", orderData[position].status)
+
                 context.startActivity(e)
-            }
-            catch (e : java.lang.Exception){
-                Log.e("Error",e.toString())
+
+            } catch (e: java.lang.Exception) {
+                Log.e("Error", e.toString())
             }
 
         }
 
     }
 
-    private fun makeToast(message:String){
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show()
+    private fun makeToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
+
     private fun getDateTime(s: String): String? {
         try {
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")

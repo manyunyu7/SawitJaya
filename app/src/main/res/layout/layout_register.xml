@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:visibility="visible">
+    android:visibility="gone">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,10 +38,10 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/sf_pro_display_light"
                     android:gravity="center"
-                    android:text="Registrasi Sawitz"
+                    android:text="Registrasi Sawit Jaya"
                     android:textAlignment="center"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="27dp" />
 
                 <ImageButton
                     android:id="@+id/btnCloseReg"

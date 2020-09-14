@@ -49,6 +49,16 @@ class canceledOrderFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        AndroidNetworking.forceCancelAll()
+        AndroidNetworking.cancelAll()
+    }
+    override fun onResume() {
+        super.onResume()
+        getOrder()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +73,6 @@ class canceledOrderFragment : Fragment() {
         recyclerViewCanceledOrder.setHasFixedSize(true)
         recyclerViewCanceledOrder.layoutManager = LinearLayoutManager(
             context, RecyclerView.VERTICAL,false)
-        getOrder()
 
         srlOrderCanceled.setOnRefreshListener {
             srlOrderCanceled.isRefreshing=false

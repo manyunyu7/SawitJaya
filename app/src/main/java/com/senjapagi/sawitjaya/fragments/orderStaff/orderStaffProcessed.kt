@@ -1,6 +1,7 @@
 package com.senjapagi.sawitjaya.fragments.orderStaff
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,13 +39,20 @@ class orderStaffProcessed : Fragment() {
 
     var data = ArrayList<modelReqOrder>()
     lateinit var adapterOrder: adapterAllOrderStaff
-
+    var urlGet = ""
+    var source = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_order_staff_processed, container, false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        AndroidNetworking.forceCancelAll()
+        AndroidNetworking.cancelAll()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +76,8 @@ class orderStaffProcessed : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        source= arguments?.getString("source").toString()
     }
-
 
     private fun getOrder() {
         try {
@@ -79,12 +87,21 @@ class orderStaffProcessed : Fragment() {
 
             staffAllOrderErrorPlaceHolder.visibility=View.GONE
             anim_loading.visibility=View.VISIBLE
+
             data.clear()
-            AndroidNetworking.get(api.STAFF_ORDER_PROCESSED)
-                .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+
+            urlGet = if(source=="admin"){
+                api.ADMIN_ORDER_PROCESSED
+            }else{
+                api.STAFF_ORDER_PROCESSED
+            }
+            val token =  Preference(requireContext()).getPrefString(const.TOKEN)
+            AndroidNetworking.get(urlGet)
+                .addHeaders("token",token)
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
+                        Log.i("Respons Get Ord","Token $token" + "${response}")
                         anim_loading.visibility=View.GONE
                         staffAllOrderErrorPlaceHolder.text=response.toString()
                         val raz = response.getJSONArray("data")
@@ -123,7 +140,7 @@ class orderStaffProcessed : Fragment() {
                                 )
 
                             }
-                            adapterOrder = adapterAllOrderStaff(data,context!!)
+                            adapterOrder = adapterAllOrderStaff(data,requireContext(),source)
                             recyclerViewStaffProcessedOrder?.adapter = adapterOrder
                             recyclerViewStaffProcessedOrder?.visibility = View.VISIBLE
                         } else {

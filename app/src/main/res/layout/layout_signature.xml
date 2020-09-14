@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:id="@+id/lyt_signature"
     android:layout_height="match_parent"
-    android:visibility="visible"
+    android:visibility="gone"
     android:background="@color/colorPurplish"
     android:orientation="vertical">
 
@@ -83,11 +83,12 @@
                     android:layout_marginEnd="20dp"
                     android:background="@color/colorWhite" />
                 <Button
+                    android:id="@+id/resetSignatureUser"
                     android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="Ulangi Tanda Tangan"/>
+                    android:text="Ulangi Tanda Tangan\n Pelanggan"/>
             </LinearLayout>
 
             <LinearLayout
@@ -111,6 +112,13 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@color/colorWhite" />
+                <Button
+                    android:id="@+id/resetSignatureStaff"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="Ulangi Tanda Tangan\n Petugas Timbang"/>
             </LinearLayout>
 
             <LinearLayout
@@ -135,25 +143,15 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@color/colorWhite" />
+                <Button
+                    android:id="@+id/resetSignatureDriver"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="Ulangi Tanda Tangan\n Petugas Timbang"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorNeoBlue"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUploadInvoice"
-            android:textColor="@color/colorNeoBlue"
-            android:backgroundTint="@color/colorWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Data Penjualan" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_staff_all_order"
-        android:icon="@drawable/ic_home_24dp"
-        android:title="Semua" />
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="Order Masuk" />
     <item
         android:id="@+id/nav_staff_processed_order"
-        android:icon="@drawable/ic_baseline_bar_chart_24"
+        android:icon="@drawable/ic_truck_sell"
         android:title="Processed" />
     <item
         android:id="@+id/nav_staff_success"
-        android:icon="@drawable/ic_baseline_nature_people_24"
+        android:icon="@drawable/ic_baseline_done_all_24"
         android:title="Selesai" />
     <item
         android:id="@+id/nav_staff_canceled"
-        android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+        android:icon="@drawable/ic_baseline_cancel_24"
         android:title="Gagal" />
 
 </menu>

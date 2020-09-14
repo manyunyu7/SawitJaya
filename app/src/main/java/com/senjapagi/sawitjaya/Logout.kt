@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.senjapagi.sawitjaya.activity.MainActivity
+import com.senjapagi.sawitjaya.activity.share.MainActivity
 import com.senjapagi.sawitz.preference.Preference
 
 
@@ -19,7 +19,9 @@ class Logout : AppCompatActivity {
 
     fun logoutDialog() {
         pDialog = SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
-        pDialog.titleText = "Do you want to end your session ?"
+        pDialog.titleText = "Konfirmasi"
+        pDialog.showContentText(true)
+        pDialog.contentText= "Anda Yakin Ingin Logout dari Aplikasi Sawit Jaya ?"
         pDialog.setCancelable(true)
         pDialog.confirmText = "Yes"
         pDialog.setConfirmClickListener {

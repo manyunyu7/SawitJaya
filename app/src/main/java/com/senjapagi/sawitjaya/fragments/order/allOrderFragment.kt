@@ -1,6 +1,7 @@
 package com.senjapagi.sawitjaya.fragments.order
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,16 @@ class allOrderFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    override fun onPause() {
+        super.onPause()
+        AndroidNetworking.forceCancelAll()
+        AndroidNetworking.cancelAll()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getOrder()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,7 +63,6 @@ class allOrderFragment : Fragment() {
         recyclerViewOrder.setHasFixedSize(true)
         recyclerViewOrder.layoutManager = LinearLayoutManager(
             context, RecyclerView.VERTICAL,false)
-        getOrder()
 
         srlOrderAll.setOnRefreshListener {
             srlOrderAll.isRefreshing=false
@@ -68,7 +78,7 @@ class allOrderFragment : Fragment() {
             anim_loading.visibility=View.VISIBLE
             data.clear()
             AndroidNetworking.get(api.USER_ORDER_ALL)
-                .addHeaders("token",Preference(context!!).getPrefString(const.TOKEN))
+                .addHeaders("token",Preference(requireContext()).getPrefString(const.TOKEN))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
@@ -110,6 +120,7 @@ class allOrderFragment : Fragment() {
                             recyclerViewOrder?.visibility = View.VISIBLE
                         } else {
                             allOrderErrorPlaceHolder.text = "Terjadi Error yang tidak diketahui"
+                            Log.e("Error ape deh",response.toString())
                         }
                     }
 
@@ -120,7 +131,7 @@ class allOrderFragment : Fragment() {
 
                 })
         }catch (err:Exception){
-
+            Log.e("FAN GetOrder",err.toString())
         }
 
     }

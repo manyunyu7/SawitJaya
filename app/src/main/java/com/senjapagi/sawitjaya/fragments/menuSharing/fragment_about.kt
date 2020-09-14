@@ -1,5 +1,7 @@
 package com.senjapagi.sawitjaya.fragments.menuSharing
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -10,11 +12,11 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentManager
 import com.senjapagi.sawitjaya.Logout
 import com.senjapagi.sawitjaya.R
-import com.senjapagi.sawitjaya.fragments.menuUser.fragment_user_all_transaction
+import com.senjapagi.sawitjaya.activity.user.UserOrderNew
 import com.senjapagi.sawitjaya.fragments.menuUser.fragment_user_home
 import kotlinx.android.synthetic.main.custom_navdraw.*
 import kotlinx.android.synthetic.main.fragment_about.*
-import kotlinx.android.synthetic.main.user_profile.btnToggleNavdraw
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,13 +47,19 @@ class fragment_about : Fragment() {
         btnToggleNavdraw.setOnClickListener { NavDrawToggle("open") }
         btnCloseNavDraw.setOnClickListener { NavDrawToggle("close") }
         lyt_navdraw_shadow.setOnClickListener { NavDrawToggle("close") }
-        ndBtnLogOut.setOnClickListener { val logout = Logout(context!!);logout.logoutDialog() }
+        ndBtnLogOut.setOnClickListener { val logout = Logout(requireContext());logout.logoutDialog() }
         ndBtnProfile.setOnClickListener { changeLayout(fragment_profile()) }
         ndBtnHome.setOnClickListener { changeLayout(fragment_user_home()) }
-        ndBtnHistory.setOnClickListener { changeLayout(fragment_user_all_transaction()) }
+        ndBtnHistory.setOnClickListener {moveActivity(UserOrderNew())  }
         ndBtnAbout.setOnClickListener { changeLayout(fragment_about()) }
 
 
+    }
+
+    private fun moveActivity(dest: Activity) {
+        NavDrawToggle("close")
+        val intent = Intent(activity, dest::class.java)
+        startActivity(intent)
     }
 
     private fun changeLayout(dest: Fragment) {

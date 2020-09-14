@@ -16,3 +16,13 @@ data class modelReqOrder(
 data class modelInvoice(
     val m : String
 )
+
+data class modelPrice(
+    val id : String,
+    val price : String,
+    val price_grade : String,
+    val weight_grade : String,
+    val created_at: String,
+    val updated_at: String,
+    val deleted_at: String
+)

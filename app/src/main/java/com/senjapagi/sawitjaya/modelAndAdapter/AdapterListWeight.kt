@@ -7,7 +7,6 @@ import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.*
 import com.senjapagi.sawitjaya.R
-import com.senjapagi.sawitjaya.activity.staff.StaffInputInvoice
 
 class CustomListAdapter(
     private val cont: Context,

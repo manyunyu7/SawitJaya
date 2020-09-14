@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.senjapagi.sawitjaya.R
-import com.senjapagi.sawitjaya.activity.UserOrderDetail
+import com.senjapagi.sawitjaya.activity.user.UserOrderDetail
 import kotlinx.android.synthetic.main.list_order.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -61,6 +61,7 @@ class adapterAllOrder (private val orderData:MutableList<modelReqOrder>, val con
             e.putExtra("status",orderData[position].status)
             context.startActivity(e)
         }
+
 
     }
 

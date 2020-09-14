@@ -3,7 +3,10 @@ package com.senjapagi.sawitjaya.activity
 
 import android.Manifest
 import android.app.Activity
-import android.content.*
+import android.content.ClipData
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -26,8 +29,9 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
+import com.senjapagi.sawitjaya.BaseActivity
 import com.senjapagi.sawitjaya.R
+import com.senjapagi.sawitjaya.activity.user.UserOrderNew
 import com.senjapagi.sawitjaya.preference.const
 import com.senjapagi.sawitjaya.util.api
 import com.senjapagi.sawitz.preference.Preference
@@ -41,14 +45,16 @@ import kotlinx.android.synthetic.main.layout_loading_upload.*
 import kotlinx.android.synthetic.main.layout_question_dialog.*
 import kotlinx.android.synthetic.main.xd_success_request_sell.*
 import org.json.JSONObject
-import java.io.*
-import java.text.DecimalFormat
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class DetailSellTBS : AppCompatActivity() {
+class DetailSellTBS : BaseActivity() {
 
     var margin = 0.0
     var price = 0.0
@@ -66,7 +72,9 @@ class DetailSellTBS : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_sell_tbs)
+        super.adjustFontScale(resources.configuration)
         updatePrice()
+        etSellEstimasiBerat.isEnabled=false
         margin = Preference(applicationContext).getPrefString(const.MARGIN)?.toDouble() ?: 0.0
         price = Preference(applicationContext).getPrefString(const.PRICE)?.toDouble() ?: 0.0
 
@@ -86,7 +94,7 @@ class DetailSellTBS : AppCompatActivity() {
         }
 
         btnInvoice.setOnClickListener {
-            startActivity(Intent(this, UserTransaction::class.java))
+            startActivity(Intent(this, UserOrderNew::class.java))
             finish()
         }
 
@@ -99,7 +107,6 @@ class DetailSellTBS : AppCompatActivity() {
             } catch (e: Exception) {
                 makeToast(e.toString())
             }
-
         }
 
 
@@ -116,20 +123,25 @@ class DetailSellTBS : AppCompatActivity() {
 
         etSellEstimasiBerat?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (s.toString().isEmpty()) {
-                    tvEstimasi.visibility = View.GONE
-                } else {
-                    tvEstimasi.visibility = View.VISIBLE
-                    val hasil = (etSellEstimasiBerat.text.toString().toDouble() * price)
-                    val number: Double = hasil
-                    val number3digits: Double = String.format("%.3f", number).toDouble()
-                    val number2digits: Double = String.format("%.2f", number3digits).toDouble()
-                    val solution: Double = String.format("%.1f", number2digits).toDouble()
-                    val formatter: NumberFormat = DecimalFormat("#,###")
-                    val formattedNumber: String = formatter.format(hasil)
-                    tvEstimasi.text =
-                        "Estimasi Harga Jual = Rp $formattedNumber,- \n * : Belum dikurangi margin"
+                try{
+                    if (s.toString().isEmpty()) {
+                        tvEstimasi.visibility = View.GONE
+                    } else {
+                        tvEstimasi.visibility = View.VISIBLE
+                        val hasil = (etSellEstimasiBerat.text.toString().toDouble() * price)
+                        val localeID = Locale("in", "ID")
+                        val formatRupiah =
+                            NumberFormat.getCurrencyInstance(localeID)
+                        tvEstimasi.text =
+                            "Estimasi Harga Jual = ${formatRupiah.format(hasil)},- \n * : Belum dikurangi margin"
+                    }
+                }catch (e:Exception){
+                    Log.e("Error Count",e.toString())
                 }
+                finally {
+
+                }
+
 
             }
 
@@ -250,95 +262,6 @@ class DetailSellTBS : AppCompatActivity() {
                 }
             }
         }
-
-
-//        if (requestCode == 2 && resultCode == Activity.RESULT_OK) { //-1  STAND FOR RESULT OK
-//            clipData = data.clipData
-//            if (clipData != null) {
-//                img1.scaleType = ImageView.ScaleType.CENTER_INSIDE
-//                img2.scaleType = ImageView.ScaleType.CENTER_INSIDE
-//                img3.scaleType = ImageView.ScaleType.CENTER_INSIDE
-//                img4.scaleType = ImageView.ScaleType.CENTER_INSIDE
-//
-//                //set target image with clipdata[arrayIndex].getUri
-//                //..example img1.setImageUri(clipData.getItemAt[1].getUri()
-//
-//                imageFile1 = null
-//                imageFile2 = null
-//                imageFile2 = null
-//                imageFile4 = null
-//
-//                try {
-//                    when (clipData.itemCount) {
-//                        1 -> {
-//                            loadImage(clipData.getItemAt(0).uri, img1, 1)
-//                            img2.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
-//                            img3.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
-//                            img4.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
-//
-//                            imageFile1 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
-//
-////                            val e = toBitmap(img1)
-////                            imageFile1=bitmapToFile(toBitmap(img1)).toFile()
-//                            makeToast(imageFile1.toString())
-//                        }
-//                        2 -> {
-//                            loadImage(clipData.getItemAt(0).uri, img1, 2)
-//                            loadImage(clipData.getItemAt(1).uri, img2, 2)
-//                            img3.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
-//                            img4.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
-//                            imageFile1 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
-//                            imageFile2 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(1).uri)))
-//                        }
-//                        3 -> {
-//                            loadImage(clipData.getItemAt(0).uri, img1, 3)
-//                            loadImage(clipData.getItemAt(1).uri, img2, 3)
-//                            loadImage(clipData.getItemAt(2).uri, img3, 3)
-//                            img4.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
-//                            imageFile1 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
-//                            imageFile2 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(1).uri)))
-//                            imageFile3 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(2).uri)))
-//                        }
-//                        4 -> {
-//                            loadImage(clipData.getItemAt(0).uri, img1, 4)
-//                            loadImage(clipData.getItemAt(1).uri, img2, 4)
-//                            loadImage(clipData.getItemAt(2).uri, img3, 4)
-//                            loadImage(clipData.getItemAt(3).uri, img4, 4)
-//                            imageFile1 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
-//                            imageFile2 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(1).uri)))
-//                            imageFile3 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(2).uri)))
-//                            imageFile4 =
-//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(3).uri)))
-//
-//                        }
-//                        else -> {
-//
-//                        }
-//                    }
-//                } catch (e: Exception) {
-//                    makeToast(e.toString())
-//                    shipper_field.setText("Catch 259 "+e.toString())
-//                    Log.e("URI ERROR", e.toString())
-//                }
-//
-//
-//                for (i in 0 until clipData.itemCount) {
-//                    val item = clipData.getItemAt(i)
-//                    val uri = item.uri
-//                    Log.e("Picked Image URI", uri.toString())
-//                }
-//            } else {
-//                makeToast(data.toString())
-//            }
     }
 
 
@@ -591,6 +514,7 @@ class DetailSellTBS : AppCompatActivity() {
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
+                    etSellEstimasiBerat.isEnabled=true
                     anim_loading.visibility = View.GONE
                     val raz = response?.getJSONObject("data")
                     if (response?.getBoolean("success_status")!!) {
@@ -612,6 +536,7 @@ class DetailSellTBS : AppCompatActivity() {
                 }
 
                 override fun onError(anError: ANError?) {
+                    etSellEstimasiBerat.isEnabled=true
                     anim_loading.visibility = View.GONE
                     internetError(
                         "Gagal Terhubung Dengan Server",
@@ -692,3 +617,92 @@ class DetailSellTBS : AppCompatActivity() {
         )
     }
 }
+
+
+//        if (requestCode == 2 && resultCode == Activity.RESULT_OK) { //-1  STAND FOR RESULT OK
+//            clipData = data.clipData
+//            if (clipData != null) {
+//                img1.scaleType = ImageView.ScaleType.CENTER_INSIDE
+//                img2.scaleType = ImageView.ScaleType.CENTER_INSIDE
+//                img3.scaleType = ImageView.ScaleType.CENTER_INSIDE
+//                img4.scaleType = ImageView.ScaleType.CENTER_INSIDE
+//
+//                //set target image with clipdata[arrayIndex].getUri
+//                //..example img1.setImageUri(clipData.getItemAt[1].getUri()
+//
+//                imageFile1 = null
+//                imageFile2 = null
+//                imageFile2 = null
+//                imageFile4 = null
+//
+//                try {
+//                    when (clipData.itemCount) {
+//                        1 -> {
+//                            loadImage(clipData.getItemAt(0).uri, img1, 1)
+//                            img2.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
+//                            img3.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
+//                            img4.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
+//
+//                            imageFile1 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
+//
+////                            val e = toBitmap(img1)
+////                            imageFile1=bitmapToFile(toBitmap(img1)).toFile()
+//                            makeToast(imageFile1.toString())
+//                        }
+//                        2 -> {
+//                            loadImage(clipData.getItemAt(0).uri, img1, 2)
+//                            loadImage(clipData.getItemAt(1).uri, img2, 2)
+//                            img3.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
+//                            img4.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
+//                            imageFile1 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
+//                            imageFile2 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(1).uri)))
+//                        }
+//                        3 -> {
+//                            loadImage(clipData.getItemAt(0).uri, img1, 3)
+//                            loadImage(clipData.getItemAt(1).uri, img2, 3)
+//                            loadImage(clipData.getItemAt(2).uri, img3, 3)
+//                            img4.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
+//                            imageFile1 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
+//                            imageFile2 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(1).uri)))
+//                            imageFile3 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(2).uri)))
+//                        }
+//                        4 -> {
+//                            loadImage(clipData.getItemAt(0).uri, img1, 4)
+//                            loadImage(clipData.getItemAt(1).uri, img2, 4)
+//                            loadImage(clipData.getItemAt(2).uri, img3, 4)
+//                            loadImage(clipData.getItemAt(3).uri, img4, 4)
+//                            imageFile1 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(0).uri)))
+//                            imageFile2 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(1).uri)))
+//                            imageFile3 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(2).uri)))
+//                            imageFile4 =
+//                                resizeImageFile(File(getRealPathFromURI(clipData.getItemAt(3).uri)))
+//
+//                        }
+//                        else -> {
+//
+//                        }
+//                    }
+//                } catch (e: Exception) {
+//                    makeToast(e.toString())
+//                    shipper_field.setText("Catch 259 "+e.toString())
+//                    Log.e("URI ERROR", e.toString())
+//                }
+//
+//
+//                for (i in 0 until clipData.itemCount) {
+//                    val item = clipData.getItemAt(i)
+//                    val uri = item.uri
+//                    Log.e("Picked Image URI", uri.toString())
+//                }
+//            } else {
+//                makeToast(data.toString())
+//            }

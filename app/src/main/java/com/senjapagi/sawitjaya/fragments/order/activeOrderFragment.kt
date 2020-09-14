@@ -47,6 +47,15 @@ class activeOrderFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    override fun onPause() {
+        super.onPause()
+        AndroidNetworking.forceCancelAll()
+        AndroidNetworking.cancelAll()
+    }
+    override fun onResume() {
+        super.onResume()
+        getOrder()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,8 +72,6 @@ class activeOrderFragment : Fragment() {
         recyclerViewActiveOrder.layoutManager = LinearLayoutManager(
             context, RecyclerView.VERTICAL, false
         )
-        getOrder()
-
         srlOrderActive.setOnRefreshListener {
             srlOrderActive.isRefreshing = false
             getOrder()
@@ -77,8 +84,8 @@ class activeOrderFragment : Fragment() {
             activeOrderErrorPlaceHolder.visibility = View.GONE
             anim_loading.visibility = View.VISIBLE
             data.clear()
-            AndroidNetworking.get(api.USER_ORDER_ALL)
-                .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+            AndroidNetworking.get(api.USER_ORDER_ACTIVE)
+                .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {

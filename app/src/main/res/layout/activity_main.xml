@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_display"
-            android:text="Jual Tandan Buah Segar lebih mudah dengan Aplikasi Sawitz !"
+            android:text="Jual Tandan Buah Segar lebih mudah dengan Aplikasi Sawit Jaya !"
             android:textColor="@color/colorWhite"
             android:textSize="14sp" />
     </LinearLayout>
@@ -53,6 +53,15 @@
             android:textColor="@color/colorBlack"
             android:text="Login" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="15dp"
+            app:backgroundTint="@color/colorWhite"
+            android:textColor="@color/colorBlack"
+            android:text="Daftar" />
+
         <ProgressBar
             android:id="@+id/progress_loader"
             style="?android:attr/progressBarStyle"
@@ -67,7 +76,7 @@
 
 
         <LinearLayout
-            android:id="@+id/btnStartRegister"
+            android:id="@+id/btnForgotPassword"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
@@ -78,24 +87,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Belum Punya Akun ? "
+                android:text="Lupa Password ? Klik Disini"
                 android:textColor="@color/colorWhite"
                 android:fontFamily="@font/montserrat_regular"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="Daftar Sekarang"
-                android:textColor="@color/colorWhite" />
-
 
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <include layout="@layout/layout_login"/>
+    <ImageView
+        android:id="@+id/btnLoginAdmin"
+        android:layout_margin="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_account_circle_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/layout_login" />
     <include layout="@layout/layout_register"/>
+    <include layout="@layout/layout_forgot_password"/>
     <include layout="@layout/layout_loading_transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

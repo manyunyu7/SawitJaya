@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.senjapagi.sawitjaya.BaseActivity
 import com.senjapagi.sawitjaya.R
 import com.senjapagi.sawitjaya.preference.const
 import com.senjapagi.sawitjaya.util.NavDrawSetter
@@ -47,7 +48,7 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.*
 
-class StaffProfile : AppCompatActivity() {
+class StaffProfile : BaseActivity() {
     var imageFileProfile: File? = null
 
 
@@ -55,9 +56,8 @@ class StaffProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_profile)
+        super.adjustFontScale(resources.configuration)
         getUserData()
-
-
         btnToggleNavdraw.setOnClickListener {
 
         }

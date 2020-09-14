@@ -7,6 +7,7 @@ import android.app.Activity
 import android.content.*
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.Location
 import android.net.*
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.senjapagi.sawitjaya.BaseActivity
 import com.senjapagi.sawitjaya.R
 import com.senjapagi.sawitjaya.util.Permissions
 import kotlinx.android.synthetic.main.activity_user_sell_tbs.*
@@ -44,7 +46,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class UserSellTBS : AppCompatActivity(), OnMapReadyCallback, PermissionCallbacks {
+class UserSellTBS : BaseActivity(), OnMapReadyCallback, PermissionCallbacks {
 
     private var mMap: GoogleMap? = null
     private lateinit var map: GoogleMap
@@ -52,7 +54,7 @@ class UserSellTBS : AppCompatActivity(), OnMapReadyCallback, PermissionCallbacks
     var lat: Double = 0.9434
     var long: Double = 116.9852
     var myMapPosition = LatLng(lat, long)
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -80,9 +82,10 @@ class UserSellTBS : AppCompatActivity(), OnMapReadyCallback, PermissionCallbacks
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_sell_tbs)
+        super.adjustFontScale(resources.configuration)
         //Hide On Screen Keyboard
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         lyt_internet_error?.visibility = View.GONE
         lyt_gps_error.visibility = View.GONE
         checkPermission()
@@ -97,6 +100,20 @@ class UserSellTBS : AppCompatActivity(), OnMapReadyCallback, PermissionCallbacks
         if (checkVal1 == PackageManager.PERMISSION_GRANTED && checkVal2 == PackageManager.PERMISSION_GRANTED) {
             gpsPermissionStat = true
             lyt_gps_error.visibility = View.GONE
+            try{
+                Handler().postDelayed({
+                    fusedLocationClient.lastLocation
+                        .addOnSuccessListener { location : Location? ->
+                            lat=location?.latitude ?: 0.9434
+                            long = location?.longitude ?:116.9852
+                            myMapPosition = LatLng(lat, long)
+                            // Got last known location. In some rare situations this can be null.
+                        }
+                },2000)
+            }catch(e:Exception){
+                Log.e("Fused Location",e.toString())
+            }
+
         }
         //Check Loop until GPS Permission Granted
         val handlerA = Handler()
@@ -173,6 +190,7 @@ class UserSellTBS : AppCompatActivity(), OnMapReadyCallback, PermissionCallbacks
             mMap!!.clear()
             val myPlace = LatLng(lat, long)
             mMap!!.uiSettings.isZoomControlsEnabled = true
+
             mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, 7.0f))
 
             if (ActivityCompat.checkSelfPermission(
@@ -449,12 +467,10 @@ class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
     private fun connectivityManagerCallback(): ConnectivityManager.NetworkCallback {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             networkCallback = object : ConnectivityManager.NetworkCallback() {
-
                 override fun onLost(network: Network) {
                     super.onLost(network)
                     postValue(false)
                 }
-
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
                     postValue(true)

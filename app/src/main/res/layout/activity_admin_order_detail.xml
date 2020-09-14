@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPurplish"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:background="@drawable/rs_header1"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBackFromDetail"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:onClick="navdrawToggle"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/btnBackFromDetail"
+            android:text="Detail Order"
+            android:textColor="@color/colorWhite"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:drawableRight="@drawable/ic_qrcode"
+            android:drawablePadding="20dp"
+            android:gravity="center"
+            android:text="QR"
+            android:textColor="@color/colorWhite"
+            android:textSize="21sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/orderDetDueDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:text="29-02-2020"
+                            android:textColor="@color/colorBlueWaves"
+                            android:textSize="17dp" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/labelOrderID"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sf_pro_display"
+                                android:text="Order ID #"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/labelStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/labelOrderID"
+                                android:fontFamily="@font/sf_pro_display"
+                                android:text="Status Order : "
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/orderDetID"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/labelOrderID"
+                                android:fontFamily="@font/sf_pro_display"
+                                android:text="0993"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/orderDetStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/bootstrap_blue_rounded"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Waiting"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sf_pro_display"
+                                android:text="Jenis : "
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sf_pro_display"
+                                android:text="Penjualan"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:text="Nama Pemesan :  "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/orderDetAccName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:gravity="center"
+                            android:text="910"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:text="Kontak Utama :  "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/orderDetAccPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:gravity="center"
+                            android:text="910"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:text="Telepon Alternative :  "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/orderDetAltContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:gravity="center"
+                            android:text="910"
+
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                app:cardCornerRadius="60dp">
+
+                                <ImageView
+                                    android:id="@+id/Detimg1"
+                                    android:layout_width="120dp"
+                                    android:layout_height="120dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                app:cardCornerRadius="60dp">
+
+                                <ImageView
+                                    android:id="@+id/Detimg2"
+                                    android:layout_width="120dp"
+                                    android:layout_height="120dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                app:cardCornerRadius="60dp">
+
+                                <ImageView
+                                    android:id="@+id/Detimg3"
+                                    android:layout_width="120dp"
+                                    android:layout_height="120dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="60dp">
+
+                                <ImageView
+                                    android:id="@+id/Detimg4"
+                                    android:layout_width="120dp"
+                                    android:layout_height="120dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                            </androidx.cardview.widget.CardView>
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:hint="Alamat Pengantaran">
+
+                        <EditText
+                            android:id="@+id/orderDetAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:overScrollMode="always"
+                            android:padding="15dp"
+                            android:textSize="11dp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:text="Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet,l. Tebet Barat VIII No.3, RT.16/RW.16, Tebet Bar., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnStaffOpenMap"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lihat di Google Maps"
+                        android:background="@drawable/bootstrap_blue_rounded"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display"
+                            android:text="Berat Estimasi :  "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="17dp" />
+
+                        <TextView
+                            android:id="@+id/orderDetEstimate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="910"
+                            android:textColor="@color/colorOrangePrice"
+                            android:textSize="17dp" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text=" Kg"
+                            android:textColor="@color/colorOrangePrice"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/containerCustInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp"
+                        >
+
+                        <LinearLayout
+                            android:padding="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            >
+                            <LinearLayout
+                                android:id="@+id/containerStaffAvailable"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                >
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    app:cardCornerRadius="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/OrderDetEmpPic"
+                                        android:layout_width="90dp"
+                                        android:layout_height="90dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                                </androidx.cardview.widget.CardView>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Staff Pengambil :"
+                                    android:textColor="@color/colorNeoBlue"
+                                    android:textSize="17dp" />
+                                <TextView
+                                    android:id="@+id/orderDetCust"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Memuat Nama Pelanggan"
+                                    android:textColor="@color/colorNeoBlue"
+                                    android:textSize="17dp" />
+                                <TextView
+                                    android:id="@+id/orderDetCustPhone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Memuat Kontak"
+                                    android:textColor="@color/colorNeoBlue"
+                                    android:textSize="15dp" />
+                            </LinearLayout>
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOrdDetailChat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/colorPurple"
+                                android:drawableLeft="@drawable/ic_baseline_chat_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Chat Pelanggan"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOrdDetailCall"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/colorPurple"
+                                android:drawableLeft="@drawable/ic_baseline_call_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Telpon Pelanggan"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/containerCustInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp"
+                        >
+
+                        <LinearLayout
+                            android:padding="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            >
+                            <LinearLayout
+                                android:id="@+id/containerStaffAvailable"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                >
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    app:cardCornerRadius="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/OrderDetPicStaff"
+                                        android:layout_width="90dp"
+                                        android:layout_height="90dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                                </androidx.cardview.widget.CardView>
+                                <TextView
+                                    android:id="@+id/orderDetStaff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Memuat Nama Pelanggan"
+                                    android:textColor="@color/colorNeoBlue"
+                                    android:textSize="17dp" />
+                                <TextView
+                                    android:id="@+id/orderDetCustPhoneStaff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Memuat Kontak"
+                                    android:textColor="@color/colorNeoBlue"
+                                    android:textSize="15dp" />
+                            </LinearLayout>
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOrdDetailChatStaff"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/colorPurple"
+                                android:drawableLeft="@drawable/ic_baseline_chat_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Chat Staff"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOrdDetailCallStaff"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/colorPurple"
+                                android:drawableLeft="@drawable/ic_baseline_call_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Telpon Staff"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/orderStatusColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="23dp"
+                            android:layout_gravity="end"
+                            android:background="@drawable/btn_rounded_button_green"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:visibility="gone" />
+
+
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:visibility="visible"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStaffSeeInvoice"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorNeoBlue"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Lihat Invoice"
+                    android:drawableLeft="@drawable/ic_baseline_check_circle_24"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStaffInputInvoice"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorNeoBlue"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="INPUT INVOICE (TIMBANG)"
+                    android:drawableLeft="@drawable/ic_baseline_check_circle_24"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:visibility="gone"
+                    android:id="@+id/btnStaffCancelOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/bootstrapRed"
+                    android:fontFamily="@font/poppins_regular"
+                    android:drawableLeft="@drawable/ic_baseline_cancel_24"
+                    android:text="Tolak Pesanan"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_question_dialog"/>
+    <include layout="@layout/layout_success_dialog"/>
+    <include layout="@layout/layout_loading_transparent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

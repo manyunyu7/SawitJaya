@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rs_background"
+    android:background="@color/colorPurplish"
     android:orientation="vertical">
 
 
@@ -74,6 +74,7 @@
               android:layout_height="wrap_content">
 
               <LinearLayout
+                  android:layout_marginBottom="20dp"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="vertical">
@@ -185,7 +186,7 @@
                           android:layout_height="wrap_content"
                           android:fontFamily="@font/sf_pro_display"
                           android:gravity="center"
-                          android:text="910"
+                          android:text="-"
                           android:textColor="@color/colorBlack"
                           android:textSize="15dp" />
                   </LinearLayout>
@@ -208,7 +209,7 @@
                           android:layout_height="wrap_content"
                           android:fontFamily="@font/sf_pro_display"
                           android:gravity="center"
-                          android:text="910"
+                          android:text="-"
                           android:textColor="@color/colorBlack"
                           android:textSize="15dp"/>
                   </LinearLayout>
@@ -231,7 +232,7 @@
                           android:layout_height="wrap_content"
                           android:fontFamily="@font/sf_pro_display"
                           android:gravity="center"
-                          android:text="910"
+                          android:text="-"
 
                           android:textColor="@color/colorBlack"
                           android:textSize="15dp" />
@@ -283,8 +284,8 @@
 
                               <ImageView
                                   android:id="@+id/Detimg3"
-                                  android:layout_width="118dp"
-                                  android:layout_height="130dp"
+                                  android:layout_width="120dp"
+                                  android:layout_height="120dp"
                                   android:scaleType="centerInside"
                                   android:src="@drawable/ic_baseline_add_photo_alternate_24" />
                           </androidx.cardview.widget.CardView>
@@ -347,7 +348,7 @@
                           android:layout_height="wrap_content"
                           android:fontFamily="@font/poppins_medium"
                           android:gravity="center"
-                          android:text="910"
+                          android:text="..."
                           android:textColor="@color/colorOrangePrice"
                           android:textSize="17dp" />
 
@@ -360,6 +361,98 @@
                           android:textColor="@color/colorOrangePrice"
                           android:textSize="15dp" />
                   </LinearLayout>
+
+                  <androidx.cardview.widget.CardView
+                      android:id="@+id/containerDriverInfo"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="3dp"
+                      android:layout_marginBottom="3dp"
+                      android:elevation="5dp"
+                      app:cardCornerRadius="10dp"
+                      >
+
+                      <LinearLayout
+                          android:padding="10dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:gravity="center"
+                          >
+                          <TextView
+                              android:id="@+id/labelContainerDriver"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/sf_pro_display"
+                              android:text="Staff/Driver Penjemput:  "
+                              android:textColor="@color/colorBlack"
+                              android:textSize="17dp" />
+                          <LinearLayout
+                              android:id="@+id/containerDriverAvailable"
+                              android:gravity="center"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                              >
+
+                          <androidx.cardview.widget.CardView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginEnd="10dp"
+                              app:cardCornerRadius="45dp">
+
+                              <ImageView
+                                  android:id="@+id/OrderDetStaffPic"
+                                  android:layout_width="90dp"
+                                  android:layout_height="90dp"
+                                  android:scaleType="centerInside"
+                                  android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+                          </androidx.cardview.widget.CardView>
+                          <TextView
+                              android:id="@+id/orderDetStaff"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/poppins_medium"
+                              android:gravity="center"
+                              android:text="Memuat Nama Driver"
+                              android:textColor="@color/colorNeoBlue"
+                              android:textSize="17dp" />
+                          <TextView
+                              android:id="@+id/orderDetStaffPhone"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/poppins_medium"
+                              android:gravity="center"
+                              android:text="Memuat Kontak"
+                              android:textColor="@color/colorNeoBlue"
+                              android:textSize="15dp" />
+                          </LinearLayout>
+                          <com.google.android.material.button.MaterialButton
+                              android:id="@+id/btnOrdDetailChat"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:backgroundTint="@color/colorGreen"
+                              android:drawableLeft="@drawable/ic_baseline_chat_24"
+                              android:fontFamily="@font/poppins_regular"
+                              android:text="Chat Driver"
+                              android:textColor="@color/colorWhite"
+                              android:textSize="12dp" />
+
+                          <com.google.android.material.button.MaterialButton
+                              android:id="@+id/btnOrdDetailCall"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:backgroundTint="@color/colorGreen"
+                              android:drawableLeft="@drawable/ic_baseline_call_24"
+                              android:fontFamily="@font/poppins_regular"
+                              android:text="Telpon Driver"
+                              android:textColor="@color/colorWhite"
+                              android:textSize="12dp" />
+                      </LinearLayout>
+
+                  </androidx.cardview.widget.CardView>
+
+
 
                   <RelativeLayout
                       android:layout_width="match_parent"
@@ -381,16 +474,7 @@
 
                   </RelativeLayout>
 
-                  <com.google.android.material.button.MaterialButton
-                      android:id="@+id/btnOrdDetailChat"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:backgroundTint="@color/colorGreen"
-                      android:drawableLeft="@drawable/ic_baseline_chat_24"
-                      android:fontFamily="@font/poppins_regular"
-                      android:text="Chat Driver"
-                      android:textColor="@color/colorWhite"
-                      android:textSize="12dp" />
+
 
                   <com.google.android.material.button.MaterialButton
                       android:id="@+id/btnOrdSeeInvoice"
@@ -421,7 +505,8 @@
       </LinearLayout>
   </ScrollView>
 
-
+    <include layout="@layout/layout_error_dialog"/>
+    <include layout="@layout/layout_success_dialog"/>
     <include layout="@layout/layout_question_dialog"/>
     <include layout="@layout/layout_loading_transparent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

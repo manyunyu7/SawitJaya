@@ -110,17 +110,6 @@
                     android:layout_marginBottom="17dp"
                     android:text="Pekerjaan Saya" />
 
-                <TextView
-                    android:id="@+id/ndStaffBtnChat"
-                    style="@style/TextViewCommonProfile"
-                    android:layout_marginBottom="17dp"
-                    android:text="Chat" />
-
-                <TextView
-                    android:id="@+id/ndStaffBtnInvoice"
-                    style="@style/TextViewCommonProfile"
-                    android:layout_marginBottom="17dp"
-                    android:text="Invoice" />
 
                 <TextView
                     android:id="@+id/ndStaffBtnProfile"

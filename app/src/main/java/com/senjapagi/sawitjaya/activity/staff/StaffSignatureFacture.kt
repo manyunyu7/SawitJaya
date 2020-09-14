@@ -3,13 +3,15 @@ package com.senjapagi.sawitjaya.activity.staff
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.gcacace.signaturepad.views.SignaturePad
+import com.senjapagi.sawitjaya.BaseActivity
 import com.senjapagi.sawitjaya.R
 import kotlinx.android.synthetic.main.activity_staff_signature_facture.*
 
 
-class StaffSignatureFacture : AppCompatActivity() {
+class StaffSignatureFacture : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        super.adjustFontScale(resources.configuration)
         setContentView(R.layout.activity_staff_signature_facture)
         var counter = 2
 

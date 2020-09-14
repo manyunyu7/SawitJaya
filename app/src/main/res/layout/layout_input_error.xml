@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/bootstrapRed"
-                android:text="Mengupload\nGambar"/>
+                android:text="Error"/>
             <TextView
                 android:id="@+id/xDialogContent"
                 android:layout_marginTop="10dp"
@@ -50,7 +50,7 @@
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
-                android:text="Mengupload\nGambar"/>
+                android:text="Error"/>
 
             <Button
                 android:id="@+id/xDialogButton"

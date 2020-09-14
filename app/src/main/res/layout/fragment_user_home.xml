@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srlUserHome"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lyt_user_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPurplish">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/lyt_user_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ScrollView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,7 +36,7 @@
                     android:layout_height="35dp"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/ic_hamburger"
-                    android:tint="@color/colorPurple" />
+                    app:tint="@color/colorPurple" />
 
                 <TextView
                     android:id="@+id/realClock"
@@ -143,6 +148,7 @@
                         android:textSize="10sp" />
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="%"
@@ -261,6 +267,7 @@
                             android:textSize="10sp" />
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -277,7 +284,6 @@
 
 
             <androidx.cardview.widget.CardView
-                android:layout_marginBottom="50dp"
                 android:id="@+id/containerMenuRow2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -414,12 +420,42 @@
                         android:textSize="11sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-        </RelativeLayout>
-    </ScrollView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_margin="20dp"
+                android:layout_below="@id/containerMenuRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_sawitz"/>
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Aplikasi ini dikembangkan oleh Sawit Jaya"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        android:textSize="14dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/layout_error_dialog"/>
     <include layout="@layout/custom_navdraw" />
     <include layout="@layout/layout_internet_error"/>
     <include layout="@layout/xd_gps_error"/>
     <include layout="@layout/layout_loading_transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

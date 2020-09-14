@@ -17,6 +17,7 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_navdraw.*
+import kotlinx.android.synthetic.main.custom_navdraw_staff.*
 import kotlinx.android.synthetic.main.custom_navdraw.view.*
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -32,10 +33,8 @@ class NavDrawSetter(val context : Context? ,val view:View) : AppCompatActivity()
         view.ndTvName.text = context?.let { Preference(it).getPrefString(const.NAME) }
 
         val a = Preference(context!!).getPrefString("photo").toString()
-
-
             val savedImage = loadImageBitmap(context,"prof_pic","PNG")
-            navDrawProfile.setImageBitmap(savedImage)
+            view.navDrawProfile.setImageBitmap(savedImage)
         }catch (err :Exception){
             Log.e("Error",err.toString())
         }
@@ -95,7 +94,7 @@ class NavDrawSetter(val context : Context? ,val view:View) : AppCompatActivity()
                 }
 
                 override fun onError(e: Exception?) {
-                    TODO("Not yet implemented")
+//                    TODO("Not yet implemented")
                 }
 
             })

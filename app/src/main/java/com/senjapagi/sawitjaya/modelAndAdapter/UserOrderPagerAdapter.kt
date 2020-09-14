@@ -1,4 +1,4 @@
-package com.senjapagi.sawitjaya
+package com.senjapagi.sawitjaya.modelAndAdapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -10,11 +10,9 @@ import com.senjapagi.sawitjaya.fragments.order.finishedOrderFragment
 
 class UserOrderPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
-        //  TODO("Not yet implemented")
         return when (position) {
             0 -> {
                 allOrderFragment()
-
             }
             1 -> {
                 activeOrderFragment()
@@ -38,14 +36,11 @@ class UserOrderPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getPageTitle(position: Int): CharSequence? {
 //        return super.getPageTitle(position)
         return when(position){
-            0->"Semua"
+            0->"Permintaan Diterima"
             1->"Aktif"
             2->"Selesai"
             3->"Gagal"
-
-
-            else->{
-                return "semua"
+            else->{"Error"
             }
         }
     }

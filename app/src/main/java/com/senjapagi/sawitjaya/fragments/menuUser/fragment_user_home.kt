@@ -19,9 +19,10 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.senjapagi.sawitjaya.Logout
 import com.senjapagi.sawitjaya.R
-import com.senjapagi.sawitjaya.activity.HomeContainer
+import com.senjapagi.sawitjaya.activity.Tutorial
+import com.senjapagi.sawitjaya.activity.user.HomeContainer
+import com.senjapagi.sawitjaya.activity.user.UserOrderNew
 import com.senjapagi.sawitjaya.activity.UserSellTBS
-import com.senjapagi.sawitjaya.activity.UserTransaction
 import com.senjapagi.sawitjaya.fragments.menuSharing.fragment_about
 import com.senjapagi.sawitjaya.fragments.menuSharing.fragment_profile
 import com.senjapagi.sawitjaya.preference.const
@@ -78,25 +79,36 @@ class fragment_user_home : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        updatePrice()
+        getTransaksi()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         realDate.text = SimpleDateFormat("dd-MM-yyyy", Locale.US).format(calendar.time).toString()
         NavDrawToggle("close")
 
-        tvTBSPrice?.text = Preference(activity!!).getPrefString(const.PRICE)
-        tvMarginPrice?.text = Preference(activity!!).getPrefString(const.MARGIN)
+        tvTBSPrice?.text = Preference(requireActivity()).getPrefString(const.PRICE)
+        tvMarginPrice?.text = Preference(requireActivity()).getPrefString(const.MARGIN)
 
+        srlUserHome.setOnRefreshListener {
+            srlUserHome.isRefreshing=false
+            updatePrice()
+            getTransaksi()
+        }
 
         homeName.text = activity?.applicationContext?.let {
             Preference(it).getPrefString(const.NAME)
-
         }
 
-//        Permissions(context, activity).grantAccess()
         updatePrice()
+        getTransaksi()
 
         btnRefreshPrice.setOnClickListener {
             updatePrice()
+            getTransaksi()
         }
         var gpsStatPermission = false
         //Hide GPS Error Layout when GPS is Available
@@ -129,7 +141,11 @@ class fragment_user_home : Fragment() {
             Permissions(context, activity).grantAccess()
         }
         btnDenyPermission.setOnClickListener {
-            activity!!.finishAffinity() //Close App if the permission is denied
+            requireActivity().finishAffinity() //Close App if the permission is denied
+        }
+
+        btnSend.setOnClickListener {
+            makeToast("Fitur ini akan seger hadir")
         }
 
 
@@ -137,14 +153,19 @@ class fragment_user_home : Fragment() {
         btnToggleNavdraw.setOnClickListener { NavDrawToggle("open") }
         btnCloseNavDraw.setOnClickListener { NavDrawToggle("close") }
         btnSell.setOnClickListener { moveActivity(UserSellTBS()) }
-        btnAllTransaction.setOnClickListener {moveActivity(UserTransaction()) }
+        btnAllTransaction.setOnClickListener {moveActivity(UserOrderNew()) }
         lyt_navdraw_shadow.setOnClickListener { NavDrawToggle("close") }
-        ndBtnLogOut.setOnClickListener { val logout = Logout(context!!);logout.logoutDialog() }
+        ndBtnLogOut.setOnClickListener { val logout = Logout(requireContext());logout.logoutDialog() }
         ndBtnProfile.setOnClickListener { changeLayout(fragment_profile()) }
         ndBtnHome.setOnClickListener { changeLayout(fragment_user_home()) }
-        ndBtnHistory.setOnClickListener { moveActivity(UserTransaction()) }
-        ndBtnAbout.setOnClickListener { changeLayout(fragment_about()) }
+        ndBtnHistory.setOnClickListener { moveActivity(UserOrderNew()) }
+        ndBtnAbout.setOnClickListener {
+            val intent = Intent(activity, Tutorial::class.java)
+            intent.putExtra("source","user")
+            startActivity(intent)
+        }
         ndBtnSell.setOnClickListener { moveActivity(UserSellTBS()) }
+        ndBtnSend.setOnClickListener {  makeToast("Fitur ini akan seger hadir") }
 
 
         val timeOfDay = calendar[Calendar.HOUR_OF_DAY]
@@ -175,7 +196,7 @@ class fragment_user_home : Fragment() {
             val fragmentManager: FragmentManager? = fragmentManager
             fragmentManager?.beginTransaction()?.replace(R.id.userFrameLayout, dest)
                 ?.commit()
-        }, 700)
+        }, 300)
     }
 
 
@@ -184,12 +205,12 @@ class fragment_user_home : Fragment() {
             lyt_navdraw?.visibility = View.VISIBLE
             lyt_navdraw?.animation =
                 AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
-            lyt_user_home.background.alpha = 200
+          srlUserHome.background.alpha = 200
         } else {
             lyt_navdraw?.animation =
                 AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation_go)
             lyt_navdraw?.visibility = View.GONE
-            lyt_user_home?.background?.alpha = 255
+            srlUserHome?.background?.alpha = 255
         }
     }
 
@@ -224,6 +245,7 @@ class fragment_user_home : Fragment() {
 
                 override fun onError(anError: ANError?) {
                     anim_loading.visibility = View.GONE
+                    errorDialog("Gagal Terhubung Dengan Server","Terjadi Kesalahan saat mengambil data transaksi")
                 }
 
             })
@@ -235,14 +257,14 @@ class fragment_user_home : Fragment() {
 
     private fun getTransaksi(){
         AndroidNetworking.get(api.USER_HOME)
-            .addHeaders("token",Preference(context!!).getPrefString(const.TOKEN))
+            .addHeaders("token",Preference(requireContext()).getPrefString(const.TOKEN))
             .setPriority(Priority.HIGH)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener{
                 override fun onResponse(response: JSONObject) {
                     if(response.getBoolean("success_status")){
                         val totalTransaction = response.getJSONObject("data").getString("total_jual")
-                        invoiceActive.text = totalTransaction + "Invoice"
+                        invoiceActive.text = totalTransaction + " Invoice"
                     }else{
                         errorDialog("Gagal Terhubung Dengan Server","Terjadi Kesalahan saat mengambil data transaksi")
                     }
@@ -258,18 +280,19 @@ class fragment_user_home : Fragment() {
     private fun errorDialog(title: String, message: String) {
         xError.visibility = View.VISIBLE
         xError.animation =
-            AnimationUtils.loadAnimation(context, R.anim.item_animation_appear_bottom)
+            AnimationUtils.loadAnimation(context, R.anim.item_animation_falldown)
         xErrorTitle.text = title
         xErrorContent.text=message
         xErrorPButton.setOnClickListener {
             xError.visibility = View.GONE
             xError.animation =
-                AnimationUtils.loadAnimation(context, R.anim.item_animation_gone_bottom)
+                AnimationUtils.loadAnimation(context, R.anim.item_animation_fallup)
             getTransaksi()
+            updatePrice()
         }
         xErrorNeutralButton.setOnClickListener {
             xError.animation=
-                AnimationUtils.loadAnimation(context, R.anim.item_animation_gone_bottom)
+                AnimationUtils.loadAnimation(context, R.anim.item_animation_fallup)
             xError.visibility=View.GONE
         }
     }

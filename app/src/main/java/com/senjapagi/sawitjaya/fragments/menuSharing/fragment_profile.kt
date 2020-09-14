@@ -26,11 +26,13 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.senjapagi.sawitjaya.Logout
 import com.senjapagi.sawitjaya.R
+import com.senjapagi.sawitjaya.activity.Tutorial
+import com.senjapagi.sawitjaya.activity.user.UserOrderNew
 import com.senjapagi.sawitjaya.fragments.menuStaff.fragment_staff_home
-import com.senjapagi.sawitjaya.fragments.menuUser.fragment_user_all_transaction
 import com.senjapagi.sawitjaya.fragments.menuUser.fragment_user_home
 import com.senjapagi.sawitjaya.preference.const
 import com.senjapagi.sawitjaya.util.NavDrawSetter
+import com.senjapagi.sawitjaya.util.NavDrawSetterStaff
 import com.senjapagi.sawitjaya.util.api
 import com.senjapagi.sawitz.preference.Preference
 import com.squareup.picasso.MemoryPolicy
@@ -95,6 +97,7 @@ class fragment_profile : Fragment() {
                 updateURL = api.STAFF_EDIT_PROFILE
                 getDataURL = api.STAFF_DATA
             } else {
+                sourceCode = 1
                 updateURL = api.USER_EDIT_PROFILE
                 getDataURL = api.USER_DATA
             }
@@ -103,29 +106,37 @@ class fragment_profile : Fragment() {
             updateURL = api.USER_EDIT_PROFILE
             getDataURL = api.USER_DATA
         }
-
+        NavDrawSetter(context, activity?.window?.decorView!!).setNavDraw()
         lyt_navdraw?.visibility = View.GONE
         btnToggleNavdraw.setOnClickListener { NavDrawToggle("open") }
-        NavDrawSetter(context, activity?.window?.decorView!!).setNavDraw()
+
 
         if (sourceCode == 1) {
             //------------USER Navdraw Operation-------------------//
+            NavDrawSetter(context, activity?.window?.decorView!!).setNavDraw()
             btnCloseNavDraw.setOnClickListener { NavDrawToggle("close") }
             lyt_navdraw_shadow.setOnClickListener { NavDrawToggle("close") }
-            ndBtnLogOut.setOnClickListener { val logout = Logout(context!!);logout.logoutDialog() }
+            ndBtnLogOut.setOnClickListener { val logout = Logout(requireContext());logout.logoutDialog() }
             ndBtnProfile.setOnClickListener { changeLayout(fragment_profile()) }
             ndBtnHome.setOnClickListener { changeLayout(fragment_user_home()) }
-            ndBtnSell.setOnClickListener { }
-            ndBtnHistory.setOnClickListener { changeLayout(fragment_user_all_transaction()) }
-            ndBtnAbout.setOnClickListener { changeLayout(fragment_about()) }
+            ndBtnSell.setOnClickListener { moveActivity(UserOrderNew())}
+            ndBtnHistory.setOnClickListener { moveActivity(UserOrderNew()) }
+            ndBtnAbout.setOnClickListener {
+                val intent = Intent(activity, Tutorial::class.java)
+                intent.putExtra("source","user")
+                startActivity(intent)
+            }
+            ndBtnSend.setOnClickListener {  makeToast("Fitur ini akan segera hadir") }
         }
         if (sourceCode == 2) {
             //------------STAFF Navdraw Operation-------------------//
+            btnToggleNavdraw.visibility=View.INVISIBLE
+            btnToggleNavdraw.isEnabled=false
             lyt_navdraw_staff_shadow.setOnClickListener { NavDrawToggle("close") }
             btnStaffCloseNavDraw.setOnClickListener { NavDrawToggle("close") }
             ndStaffBtnHome.setOnClickListener { changeLayout(fragment_staff_home()) }
             ndStaffBtnLogOut.setOnClickListener {
-                val logout = Logout(context!!);logout.logoutDialog()
+                val logout = Logout(requireContext());logout.logoutDialog()
             }
             lyt_navdraw_staff_shadow.setOnClickListener { NavDrawToggle("close") }
 
@@ -136,13 +147,14 @@ class fragment_profile : Fragment() {
         srlProfile.setOnRefreshListener {
             srlProfile.isRefreshing = false
             getUserData()
+            updateLayout()
         }
 
 
 
         btnChangeProfile.setOnClickListener {
             CropImage.activity()
-                .start(context!!, this);
+                .start(requireContext(), this);
         }
 
         btnSaveUpdateProfile.setOnClickListener {
@@ -152,24 +164,35 @@ class fragment_profile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+
+
+    private fun moveActivity(dest: Activity) {
+        NavDrawToggle("close")
+        val intent = Intent(activity, dest::class.java)
+        startActivity(intent)
+    }
+
     private fun updateLayout() {
-        val pref = Preference(context!!)
+        val pref = Preference(requireContext())
+
         tvProfileTelp.text = pref.getPrefString(const.PHONE)
         tvProfileName.text = pref.getPrefString(const.NAME)
-        tvProfileEmail.text = Preference(context!!).getPrefString(const.EMAIL)
+        tvProfileEmail.text = Preference(requireContext()).getPrefString(const.EMAIL)
         etProfileName.setText(pref.getPrefString(const.NAME))
         etProfileTelp.setText(pref.getPrefString(const.PHONE))
         etProfileNIK.setText(pref.getPrefString(const.USER_NIK))
         etProfileEmail.setText(pref.getPrefString(const.EMAIL))
         etProfileMainAddress.setText(pref.getPrefString(const.ADDRESS))
         val imageUrl =
-            api.PROFILE_PIC_URL + Preference(context!!).getPrefString(const.PROFILE_URL)
+            api.PROFILE_PIC_URL + Preference(requireContext()).getPrefString(const.PROFILE_URL)
         Picasso.get()
             .load(imageUrl)
             .placeholder(R.drawable.ic_profile)
             .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
             .error(R.drawable.ic_profile)
             .into(ivProfilePict)
+
+
         NavDrawSetter(context, activity?.window?.decorView!!).setNavDraw()
     }
 
@@ -207,7 +230,6 @@ class fragment_profile : Fragment() {
                 val drawable: Drawable = ivProfilePict.drawable
                 val bitmap = (drawable as BitmapDrawable).bitmap
                 imageFileProfile = File(getImagePath(bitmapToFile(bitmap)))
-                makeToast("tok2")
             }
         } catch (e: Exception) {
             Log.e("exception", e.toString())
@@ -302,7 +324,6 @@ class fragment_profile : Fragment() {
     }
 
     private fun NavDrawToggle(indicator: String) {
-        makeToast(sourceCode.toString())
         if (sourceCode == 1) {
             if (indicator == "open") {
                 lyt_navdraw.visibility = View.VISIBLE
@@ -335,7 +356,7 @@ class fragment_profile : Fragment() {
     private fun updateData() {
         anim_loading.visibility = View.VISIBLE
         AndroidNetworking.upload(updateURL)
-            .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+            .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
             .addMultipartParameter("name", etProfileName.text.toString())
             .addMultipartParameter("phone", etProfileTelp.text.toString())
             .addMultipartParameter("address", etProfileMainAddress.text.toString())
@@ -349,6 +370,7 @@ class fragment_profile : Fragment() {
             .getAsJSONObject(object : JSONObjectRequestListener {
 
                 override fun onResponse(response: JSONObject) {
+                    updateLayout()
                     if (response.getBoolean("success_status")) {
                         successDialog("Berhasil Mengupdate Profile","")
                         val raz = response.getJSONObject("data")
@@ -365,7 +387,7 @@ class fragment_profile : Fragment() {
                             raz.getString("photo_identity")
                         )
                         Preference(context!!).save(const.USER_NIK, raz.getString("identity_number"))
-                        updateLayout()
+
 
                     }else{
                         errorDialog(
@@ -379,6 +401,7 @@ class fragment_profile : Fragment() {
                 }
 
                 override fun onError(anError: ANError?) {
+                    updateLayout()
                     errorDialog(
                         "Gagal Mengupdate Data User",
                         "Periksa koneksi internet anda dan coba lagi nanti"
@@ -396,7 +419,7 @@ class fragment_profile : Fragment() {
     fun updateDataNoPass() {
         anim_loading.visibility = View.VISIBLE
         AndroidNetworking.upload(updateURL)
-            .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+            .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
             .addMultipartParameter("name", etProfileName.text.toString())
             .addMultipartParameter("phone", etProfileTelp.text.toString())
             .addMultipartParameter("address", etProfileMainAddress.text.toString())
@@ -448,7 +471,7 @@ class fragment_profile : Fragment() {
         profileErrorMessage.visibility = View.GONE
         anim_loading.visibility = View.VISIBLE
         AndroidNetworking.get(getDataURL)
-            .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+            .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject) {

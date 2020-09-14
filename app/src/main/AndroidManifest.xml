@@ -9,6 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -24,27 +25,23 @@
         android:roundIcon="@mipmap/ic_sawitz_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".activity.staff.StaffSignatureFacture">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity android:name=".activity.staff.StaffInputInvoice" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
+        <activity android:name=".activity.Webview"></activity>
+        <activity android:name=".activity.admin.AdminManageStaff" />
+        <activity android:name=".activity.admin.AdminOrderDetail" />
+        <activity android:name=".activity.admin.AdminTransaction" />
+        <activity android:name=".activity.admin.AdminManageHarga"></activity>
+        <activity android:name=".activity.Tutorial" />
+        <activity android:name=".activity.user.UserOrderNew" />
+        <activity android:name=".activity.share.DetailInvoice" />
+        <activity android:name=".activity.staff.StaffSignatureFacture"></activity>
         <activity android:name=".activity.staff.StaffProfile" />
         <activity android:name=".activity.staff.StaffOrderDetail" />
         <activity android:name=".activity.staff.StaffOrderPage" />
         <activity android:name=".activity.staff.StaffHome" />
-        <activity android:name=".activity.AdminHome" />
-        <activity android:name=".activity.UserOrderDetail" />
+        <activity android:name=".activity.admin.AdminHome" />
+        <activity android:name=".activity.user.UserOrderDetail" />
         <activity android:name=".activity.UserTransaction" />
         <activity android:name=".activity.DetailSellTBS" />
         <!--
@@ -63,8 +60,8 @@
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".activity.UserSellTBS" />
-        <activity android:name=".activity.HomeContainer" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.user.HomeContainer" />
+        <activity android:name=".activity.share.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

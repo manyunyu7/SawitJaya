@@ -1,6 +1,7 @@
 package com.senjapagi.sawitjaya.fragments.orderStaff
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,8 @@ class orderStaffSuccessfull : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    var urlGet = ""
+    var source = ""
     var data = ArrayList<modelReqOrder>()
     lateinit var adapterOrder: adapterAllOrderStaff
 
@@ -48,8 +50,14 @@ class orderStaffSuccessfull : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        source= arguments?.getString("source").toString()
 
+    }
 
+    override fun onPause() {
+        super.onPause()
+        AndroidNetworking.forceCancelAll()
+        AndroidNetworking.cancelAll()
     }
 
     override fun onResume() {
@@ -70,11 +78,19 @@ class orderStaffSuccessfull : Fragment() {
             staffSuccessOrderErrorPlaceHolder.visibility=View.GONE
             anim_loading.visibility=View.VISIBLE
             data.clear()
-            AndroidNetworking.get(api.STAFF_ORDER_SUCCESSED)
-                .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+
+            urlGet = if(source=="admin"){
+                api.ADMIN_ORDER_SUCCESSED
+            }else{
+                api.STAFF_ORDER_SUCCESSED
+            }
+
+            AndroidNetworking.get(urlGet)
+                .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
+                        Log.i("Respons Get Ord","$response")
                         anim_loading?.visibility=View.GONE
                         staffSuccessOrderErrorPlaceHolder.text=response.toString()
                         val raz = response.getJSONArray("data")
@@ -113,7 +129,7 @@ class orderStaffSuccessfull : Fragment() {
                                 )
 
                             }
-                            adapterOrder = adapterAllOrderStaff(data,context!!)
+                            adapterOrder = adapterAllOrderStaff(data,requireContext(),source)
                             recyclerViewStaffSuccessOrder?.adapter = adapterOrder
                             recyclerViewStaffSuccessOrder?.visibility = View.VISIBLE
                         } else {

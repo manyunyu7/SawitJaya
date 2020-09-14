@@ -1,18 +1,22 @@
 package com.senjapagi.sawitjaya.activity.staff
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.senjapagi.sawitjaya.BaseActivity
 import com.senjapagi.sawitjaya.R
+import com.senjapagi.sawitjaya.activity.share.DetailInvoice
 import com.senjapagi.sawitjaya.preference.const
 import com.senjapagi.sawitjaya.util.api
 import com.senjapagi.sawitz.preference.Preference
@@ -21,17 +25,35 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_staff_order_detail.*
+import kotlinx.android.synthetic.main.activity_staff_order_detail.Detimg1
+import kotlinx.android.synthetic.main.activity_staff_order_detail.Detimg2
+import kotlinx.android.synthetic.main.activity_staff_order_detail.Detimg3
+import kotlinx.android.synthetic.main.activity_staff_order_detail.Detimg4
+import kotlinx.android.synthetic.main.activity_staff_order_detail.btnBackFromDetail
+import kotlinx.android.synthetic.main.activity_staff_order_detail.btnOrdDetailChat
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetAccName
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetAccPhone
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetAddress
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetAltContact
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetDueDate
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetEstimate
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetID
+import kotlinx.android.synthetic.main.activity_staff_order_detail.orderDetStatus
+import kotlinx.android.synthetic.main.layout_input_dialog.*
 import kotlinx.android.synthetic.main.layout_loading_transparent.*
 import kotlinx.android.synthetic.main.layout_question_dialog.*
 import kotlinx.android.synthetic.main.layout_success_dialog.*
 import org.json.JSONObject
+import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StaffOrderDetail : AppCompatActivity() {
+class StaffOrderDetail : BaseActivity() {
     var stat = ""
+    var custPhone = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        super.adjustFontScale(resources.configuration)
         setContentView(R.layout.activity_staff_order_detail)
 //
 //        e.putExtra("id",orderData[position].id)
@@ -49,7 +71,24 @@ class StaffOrderDetail : AppCompatActivity() {
 
 
         btnStaffInputInvoice.setOnClickListener {
-            val e = Intent(this,StaffInputInvoice::class.java)
+            val e = Intent(this,
+                DetailInvoice::class.java)
+            e.putExtra("source","edit")
+            e.putExtra("order_id",orderDetID.text.toString())
+            e.putExtra("order_date",orderDetDueDate.text.toString())
+            e.putExtra("name",orderDetAccName.text.toString())
+            e.putExtra("alt_con",orderDetAltContact.text.toString())
+            e.putExtra("main_con",orderDetAccPhone.text.toString())
+            e.putExtra("address",orderDetAddress.text.toString())
+            e.putExtra("est_weight",orderDetEstimate.text.toString())
+            startActivity(e)
+        }
+
+        btnStaffSeeInvoice.setOnClickListener {
+            val e = Intent(this,
+                DetailInvoice::class.java)
+            e.putExtra("source","see")
+            e.putExtra("url","staff")
             e.putExtra("order_id",orderDetID.text.toString())
             e.putExtra("order_date",orderDetDueDate.text.toString())
             e.putExtra("name",orderDetAccName.text.toString())
@@ -69,9 +108,6 @@ class StaffOrderDetail : AppCompatActivity() {
         }
 
         onStatusName()
-
-
-
 
         btnStaffUntakeOrder.setOnClickListener {
             xQuestion.visibility = View.VISIBLE
@@ -121,18 +157,58 @@ class StaffOrderDetail : AppCompatActivity() {
 
     private fun onStatusName() {
         btnStaffInputInvoice.visibility = View.GONE
-        btnStaffCancelOrder.visibility = View.GONE
         btnStaffSeeInvoice.visibility=View.GONE
+        btnStaffCancelOrder.visibility=View.GONE
         when (intent.getStringExtra("status")) {
             "waiting" -> {
                 stat = "Menunggu Diproses"
-                btnOrdDetailChat.visibility = View.GONE
+                btnStaffUntakeOrder.visibility=View.GONE
+                btnOrdDetailCall.setOnClickListener{
+                    openNumber(custPhone)
+                }
+                btnOrdDetailChat.setOnClickListener {
+                    sendWhatsapp(
+                        "#OrderID : ${orderDetID.text}\n" +
+                                "Pesan :"
+                        , custPhone
+                    )
+                }
+
             }
             "processed" -> {
                 stat = "Sedang Diproses"
+                btnStaffCancelOrder.visibility=View.VISIBLE
                 btnStaffAcceptOrder.visibility = View.GONE
                 btnStaffInputInvoice.visibility = View.VISIBLE
                 btnOrdDetailChat.visibility = View.VISIBLE
+                btnOrdDetailCall.setOnClickListener{
+                    openNumber(custPhone)
+                }
+                btnOrdDetailChat.setOnClickListener {
+                    sendWhatsapp(
+                        "#OrderID : ${orderDetID.text}\n" +
+                                "Pesan :"
+                        , custPhone
+                    )
+                }
+                btnStaffCancelOrder.setOnClickListener {
+                    xInputDialog.visibility=View.VISIBLE
+                    xInputDialog.animation=loadAnimation(this,R.anim.item_animation_falldown)
+                    xInputDialogTitle.text="Alasan Pembatalan"
+                    xInputDialogNeutralButton.setOnClickListener {
+                        xInputDialog.visibility=View.VISIBLE
+                        xInputDialog.animation=loadAnimation(this,R.anim.item_animation_falldown)
+                    }
+                    xInputDialogNButton.setOnClickListener {
+                        if(xInputDialogEditText.text.toString()==""){
+                            xInputDialogEditText.error="Required"
+                        }else{
+                            xInputDialog.visibility=View.VISIBLE
+                            xInputDialog.animation=loadAnimation(this,R.anim.item_animation_falldown)
+                            rejectOrder()
+                        }
+                    }
+                }
             }
             "successed" -> {
                 stat = "Selesai"
@@ -140,12 +216,32 @@ class StaffOrderDetail : AppCompatActivity() {
                 btnStaffAcceptOrder.visibility = View.GONE
                 btnOrdDetailChat.visibility=View.GONE
                 btnStaffUntakeOrder.visibility=View.GONE
+                btnOrdDetailCall.setOnClickListener{
+                    openNumber(custPhone)
+                }
+                btnOrdDetailChat.setOnClickListener {
+                    sendWhatsapp(
+                        "#OrderID : ${orderDetID.text}\n" +
+                                "Pesan :"
+                        , custPhone
+                    )
+                }
             }
             "failed" -> {
                 stat = "Dibatalkan"
                 btnStaffAcceptOrder.visibility = View.GONE
                 btnOrdDetailChat.visibility=View.GONE
                 btnStaffUntakeOrder.visibility=View.GONE
+                btnOrdDetailCall.setOnClickListener{
+                    openNumber(custPhone)
+                }
+                btnOrdDetailChat.setOnClickListener {
+                    sendWhatsapp(
+                        "#OrderID : ${orderDetID.text}\n" +
+                                "Pesan :"
+                        , custPhone
+                    )
+                }
 
             }
         }
@@ -160,6 +256,35 @@ class StaffOrderDetail : AppCompatActivity() {
         } catch (e: Exception) {
             return e.toString()
         }
+    }
+
+
+    private fun rejectOrder(){
+        val orderID = orderDetID.text.toString()
+        AndroidNetworking.post(api.BASE_URL + "staff/jual/${orderDetID.text}/edit_status")
+            .addHeaders("token", Preference(this).getPrefString(const.TOKEN))
+            .addBodyParameter("status","cancelled")
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    if (response.getBoolean("success_status")) {
+                        successDialog("Info", "Berhasil Ambil Order", 1)
+                    } else {
+                        successDialog("Info", "Gagal Mengambil Order", 0)
+                    }
+                    Log.i("Response Accept Order", response.toString())
+                }
+
+                override fun onError(anError: ANError?) {
+                    Log.i("Response Accept Order", anError.toString())
+                    successDialog(
+                        "Gagal Terhubung Dengan Server",
+                        "Gagal Mengambil Order , Coba Lagi Nanti",
+                        0
+                    )
+                }
+
+            })
     }
 
     private fun takeOrder() {
@@ -265,6 +390,24 @@ class StaffOrderDetail : AppCompatActivity() {
                             try {
                                 val raz = response.getJSONObject("data")
                                 val ky = raz.getJSONObject("user_detail")
+
+                                var custData = raz.opt("user_detail")
+                                if (custData.toString() == "null") {
+                                    containerStaffAvailable.visibility = View.VISIBLE
+                                    Log.i("Info JSON", "Emp Data is Null")
+                                    containerStaffAvailable.visibility = View.GONE
+
+                                } else {
+                                    Log.i("Info JSON Not Null",custData.toString())
+                                    val cust_dataJSON = raz.getJSONObject("user_detail")
+                                    val empName = cust_dataJSON.getString("name")
+                                    custPhone = cust_dataJSON.getString("phone")
+                                    orderDetCust.text = empName
+                                    orderDetCustPhone.text = custPhone
+                                    val empID = cust_dataJSON.getString("photo_profile")
+                                    downloadPicasso(api.PROFILE_PIC_URL + empID, OrderDetEmpPic)
+                                }
+
                                 val est_weight = raz.getString("est_weight")
                                 val addr = raz.getString("addr")
                                 val staff_id = raz.getString("staff_id")
@@ -398,7 +541,41 @@ class StaffOrderDetail : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("Catch Error Picasso", e.toString())
         }
+    }
+    private fun openNumber(num : String){
+        try {
+            makeToast("Membuka Telpon")
+            var number = num
+            number = number.replaceFirst("0","62",true)
+            val intent =
+                Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+            startActivity(intent)
+        }catch (e:Exception){
+            makeToast(e.toString())
+        }
+    }
 
+    private fun sendWhatsapp(message: String, num: String) {
+        var number = num
+        number = number.replaceFirst("0","62",true)
+        makeToast("Membuka Whatsapp")
+        val pm = packageManager
+        try {
+            val packageManager: PackageManager = pm
+            val i = Intent(Intent.ACTION_VIEW)
+            val url =
+                "https://api.whatsapp.com/send?phone=$number&text=" + URLEncoder.encode(
+                    message,
+                    "UTF-8"
+                )
+            i.setPackage("com.whatsapp")
+            i.data = Uri.parse(url)
+            if (i.resolveActivity(packageManager) != null) {
+                startActivity(i)
+            }
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 //
 //        "success_status": true,

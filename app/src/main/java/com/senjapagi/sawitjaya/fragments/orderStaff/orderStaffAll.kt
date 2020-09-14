@@ -1,6 +1,7 @@
 package com.senjapagi.sawitjaya.fragments.orderStaff
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,9 +37,12 @@ class orderStaffAll : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    var urlGet = ""
+    var source = ""
     var data = ArrayList<modelReqOrder>()
     lateinit var adapterOrder: adapterAllOrderStaff
+
+    val mView = view
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +52,15 @@ class orderStaffAll : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        AndroidNetworking.forceCancelAll()
+        AndroidNetworking.cancelAll()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        source= arguments?.getString("source").toString()
     }
 
     override fun onResume() {
@@ -64,19 +73,25 @@ class orderStaffAll : Fragment() {
     }
 
     private fun getOrder() {
+        urlGet = if(source=="admin"){
+            api.ADMIN_ORDER_ALL
+        }else{
+            api.STAFF_ORDER_ALL
+        }
         try {
-            recyclerViewStaffAllOrder.setHasFixedSize(true)
+         recyclerViewStaffAllOrder.setHasFixedSize(true)
             recyclerViewStaffAllOrder.layoutManager = LinearLayoutManager(
                 context, RecyclerView.VERTICAL, false)
 
             staffAllOrderErrorPlaceHolder.visibility=View.GONE
             anim_loading.visibility=View.VISIBLE
             data.clear()
-            AndroidNetworking.get(api.STAFF_ORDER_ALL)
-                .addHeaders("token", Preference(context!!).getPrefString(const.TOKEN))
+            AndroidNetworking.get(urlGet)
+                .addHeaders("token", Preference(requireContext()).getPrefString(const.TOKEN))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
+                        Log.i("Respons Get Ord","$response")
                         anim_loading?.visibility=View.GONE
                         staffAllOrderErrorPlaceHolder.text=response.toString()
                         val raz = response.getJSONArray("data")
@@ -115,7 +130,7 @@ class orderStaffAll : Fragment() {
                                 )
 
                             }
-                            adapterOrder = adapterAllOrderStaff(data,context!!)
+                            adapterOrder = adapterAllOrderStaff(data,requireContext(),source)
                             recyclerViewStaffAllOrder?.adapter = adapterOrder
                             recyclerViewStaffAllOrder?.visibility = View.VISIBLE
                         } else {
@@ -130,7 +145,7 @@ class orderStaffAll : Fragment() {
 
                 })
         }catch (err:Exception){
-
+            Log.e("Error",err.toString())
         }
 
     }
@@ -140,7 +155,8 @@ class orderStaffAll : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_staff_all, container, false)
+        val mView = inflater.inflate(R.layout.fragment_order_staff_all, container, false)
+        return mView
     }
 
     companion object {
